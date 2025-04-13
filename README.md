@@ -26,11 +26,11 @@
 <br>
 
 ## 👥 멤버
-| 팀원 1 | 팀원 2 | 팀원 3 | 팀원 4 |
-|:------:|:------:|:------:|:------:|
-| 사진1 | 사진2 | 사진3 | 사진4 |
-| PL | FE | FE | FE |
-| [GitHub](깃허브 링크) | [GitHub](깃허브 링크) | [GitHub](깃허브 링크) | [GitHub](깃허브 링크) |
+| 제옹(본인) |
+|:------:|
+|<img src="https://github.com/user-attachments/assets/bb06cbd5-3be3-463b-a142-16d8de13720b" width="100" />| 
+| Design, Front, PM |
+| [GitHub](깃허브 링크) |
 
 <br>
 
@@ -42,8 +42,8 @@
 <br>
 
 ## 📆 프로젝트 기간
-- 전체 기간: `YYYY.MM.DD - YYYY.MM.DD`
-- 개발 기간: `YYYY.MM.DD - YYYY.MM.DD`
+- 전체 기간: `2025.04.07 - YYYY.MM.DD`
+- 개발 기간: `2025.04.14 - YYYY.MM.DD`
 
 <br>
 
