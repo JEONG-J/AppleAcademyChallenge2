@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5C0F4F662DAB91500005894F /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0F4F652DAB91500005894F /* CombineMoya */; };
 		5C0F4F682DAB91500005894F /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0F4F672DAB91500005894F /* Moya */; };
+		5CEDD7F62DABFD25006E83D2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5CEDD7F52DABFD25006E83D2 /* FirebaseAuth */; };
+		5CEDD7F82DABFD25006E83D2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5CEDD7F72DABFD25006E83D2 /* FirebaseDatabase */; };
+		5CEDD7FA2DABFD25006E83D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5CEDD7F92DABFD25006E83D2 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C0F4F682DAB91500005894F /* Moya in Frameworks */,
+				5CEDD7F62DABFD25006E83D2 /* FirebaseAuth in Frameworks */,
+				5CEDD7F82DABFD25006E83D2 /* FirebaseDatabase in Frameworks */,
+				5CEDD7FA2DABFD25006E83D2 /* FirebaseFirestore in Frameworks */,
 				5C0F4F662DAB91500005894F /* CombineMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +93,9 @@
 			packageProductDependencies = (
 				5C0F4F652DAB91500005894F /* CombineMoya */,
 				5C0F4F672DAB91500005894F /* Moya */,
+				5CEDD7F52DABFD25006E83D2 /* FirebaseAuth */,
+				5CEDD7F72DABFD25006E83D2 /* FirebaseDatabase */,
+				5CEDD7F92DABFD25006E83D2 /* FirebaseFirestore */,
 			);
 			productName = FeelFarm;
 			productReference = 5C0F4F532DAB90E60005894F /* FeelFarm.app */;
@@ -118,6 +127,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5C0F4F642DAB91500005894F /* XCRemoteSwiftPackageReference "Moya" */,
+				5CEDD7F42DABFD25006E83D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5C0F4F542DAB90E60005894F /* Products */;
@@ -274,6 +284,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FeelFarm/FeelFarm.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FeelFarm/Preview Content\"";
@@ -305,6 +316,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FeelFarm/FeelFarm.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FeelFarm/Preview Content\"";
@@ -363,6 +375,14 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		5CEDD7F42DABFD25006E83D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -375,6 +395,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5C0F4F642DAB91500005894F /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		5CEDD7F52DABFD25006E83D2 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CEDD7F42DABFD25006E83D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		5CEDD7F72DABFD25006E83D2 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CEDD7F42DABFD25006E83D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		5CEDD7F92DABFD25006E83D2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CEDD7F42DABFD25006E83D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
