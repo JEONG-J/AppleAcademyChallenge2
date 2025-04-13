@@ -127,9 +127,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-<<<<<<< HEAD
-# End of https://www.toptal.com/developers/gitignore/api/macos,swift,cocoapods
-=======
 # End of https://www.toptal.com/developers/gitignore/api/macos,swift,cocoapo
 *.env
->>>>>>> d26430d (📝 깃 이그노어 수정)

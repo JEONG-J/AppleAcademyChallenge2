@@ -1,0 +1,5 @@
+flask
+deepl
+huggingface_hub
+python-dotenv
+requests
