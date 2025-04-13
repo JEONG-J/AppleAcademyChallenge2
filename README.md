@@ -112,6 +112,9 @@ Swift 6.0
 * `feat/xx` - 기능 단위로 독립적인 개발 환경을 위해 작성
 * `refac/xx` - 개발된 기능을 리팩토링 하기 위해 작성
 * `hotfix/xx` - 출시 버전에서 발생한 버그를 수정하는 브랜치
+* `chore/xx` - 빌드 작업, 패키지 매니저 설정 등
+* `design/xx` - 디자인 변경
+* `bugfix/xx` - 디자인 변경
 
 <br>
 
@@ -157,16 +160,25 @@ if let user = self.veryLongFunctionNameWhichReturnsOptionalUser(),
 | 아이콘 | 코드 | 설명 | 원문 |
 | :---: | :---: | :---: | :---: |
 | 🐛 | bug | 버그 수정 | Fix a bug |
-| ✨ | sparkles | 새 기능 | Introduce new features. |
-| 💄 | lipstick:| UI/스타일 파일 추가/수정 | Add or update the UI and style files. |
-| ♻️ | recycle | 코드 리팩토링 | Refactor code. |
-| ➕ | heavy_plus_sign | 의존성 추가 | Add a dependency. |
-| 🔀 | twisted_rightwards_arrows | 브랜치 합병 | Merge branches. |
-| 💡 | bulb | 주석 추가/수정 | Add or update comments in source code |
-| 🔥 | fire | 코드 파일 삭제 | Remove code or files. |
-| 🚑 | ambulance | 긴급 수정 | Critical hotfix. |
-| 🎉 | tada | 프로젝트 시작 | Begin a project. |
-| 🔒 | lock | 보안 이슈 | :lock: | 보안 이슈 수정 |
+| ✨ | sparkles | 새 기능 | Introduce new features |
+| 💄 | lipstick | UI/스타일 파일 추가/수정 | Add or update the UI and style files |
+| ♻️ | recycle | 코드 리팩토링 | Refactor code |
+| ➕ | heavy_plus_sign | 의존성 추가 | Add a dependency |
+| 🔀 | twisted_rightwards_arrows | 브랜치 합병 | Merge branches |
+| 💡 | bulb | 주석 추가/수정 | Add or update comments in source code |
+| 🔥 | fire | 코드/파일 삭제 | Remove code or files |
+| 🚑 | ambulance | 긴급 수정 | Critical hotfix |
+| 🎉 | tada | 프로젝트 시작 | Begin a project |
+| 🔒 | lock | 보안 이슈 수정 | Fix security issues |
+| 🔖 | bookmark | 릴리즈/버전 태그 | Release / Version tags |
+| 📝 | memo | 문서 추가/수정 | Add or update documentation |
+| 🔧 | wrench | 구성 파일 추가/삭제 | Add or update configuration files.|
+| ⚡️ | zap | 성능 개선 | Improve performance |
+| 🎨 | art | 코드 구조 개선 | Improve structure / format of the code |
+| 📦 | package | 컴파일된 파일 추가/수정 | Add or update compiled files |
+| 👽 | alien | 외부 API 변경 반영 | Update code due to external API changes |
+| 🚚 | truck | 리소스 이동, 이름 변경 | Move or rename resources |
+| 🙈 | see_no_evil | .gitignore 추가/수정 | Add or update a .gitignore file |
 
 <br>
 
