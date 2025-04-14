@@ -23,11 +23,18 @@ struct HomeView: View {
                 EmotionPicker(viewModel: viewModel)
             }
             
-            ExperienceGuide(guideType: .existence, text: "하하하")
+            ExperienceGuide(guideType: returnGuidType(), text: "하하하")
         })
         .animation(.easeInOut, value: viewModel.isEmotionPickerPresented)
     }
     
+    private func returnGuidType() -> ExperienceGuide.GuideType {
+        if viewModel.emotionReponse == nil {
+            return .none
+        } else {
+            return .existence
+        }
+    }
 }
 
 #Preview {
