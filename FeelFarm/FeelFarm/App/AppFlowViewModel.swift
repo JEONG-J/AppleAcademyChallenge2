@@ -15,6 +15,7 @@ class AppFlowViewModel: ObservableObject {
     
     enum AppState {
         case onboarding
+        case login
         case createProfile
         case tabbar
     }
@@ -23,6 +24,9 @@ class AppFlowViewModel: ObservableObject {
         if let user = Auth.auth().currentUser {
             print("자동 로그인된 사용자 UID: \(user.uid)")
             checkUserProfile(uid: user.uid)
+        } else {
+            print("로그인 한 사용자 없음")
+            appState = .login
         }
     }
     
