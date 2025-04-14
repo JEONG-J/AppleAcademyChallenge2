@@ -6,24 +6,24 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct EmotionPicker: View {
     
     let emotionList = EmotionDataList.emotionList
     @Bindable var viewModel: HomeViewModel
-    @State var isEmotionPickerViewAnimation: Bool = false
     
     var body: some View {
         emotionPickerView
-            .opacity(isEmotionPickerViewAnimation ? 1 : 0)
+            .opacity(viewModel.isEmotionPickerViewAnimation ? 1 : 0)
             .onAppear {
                 withAnimation(.easeInOut(duration: 0.5)) {
-                    isEmotionPickerViewAnimation = true
+                    viewModel.isEmotionPickerViewAnimation = true
                 }
             }
             .onDisappear {
                 withAnimation(.bouncy(duration: 1.5)) {
-                    isEmotionPickerViewAnimation = false
+                    viewModel.isEmotionPickerViewAnimation = false
                 }
             }
     }
@@ -33,8 +33,12 @@ struct EmotionPicker: View {
             
             ForEach(emotionList, id: \.id) { emotion in
                 Button(action: {
-                    viewModel.emotionType = emotion.emotionType
-                    print(emotion)
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        viewModel.emotionType = emotion.emotionType
+                        viewModel.isEmotionPickerViewAnimation.toggle()
+                        viewModel.isEmotionPickerPresented.toggle()
+                        viewModel.getLatestEmotion(of: emotion.emotionType)
+                    }
                 }, label: {
                     emotion.emotionType.emotionIcon
                         .resizable()

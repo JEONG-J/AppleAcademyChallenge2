@@ -8,9 +8,26 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    var viewModel: HomeViewModel = .init()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        topContents
     }
+    
+    private var topContents: some View {
+        VStack(alignment: .leading, spacing: 16, content: {
+            SelecteEmotion(viewModel: viewModel)
+            
+            if viewModel.isEmotionPickerPresented {
+                EmotionPicker(viewModel: viewModel)
+            }
+            
+            ExperienceGuide(guideType: .existence, text: "하하하")
+        })
+        .animation(.easeInOut, value: viewModel.isEmotionPickerPresented)
+    }
+    
 }
 
 #Preview {
