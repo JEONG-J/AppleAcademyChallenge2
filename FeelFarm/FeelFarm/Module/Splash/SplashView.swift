@@ -40,6 +40,7 @@ struct SplashView: View {
             try? await Task.sleep(nanoseconds: 1_500_000_000)
             appFlowViewModel.checkAuthState()
         }
+        .background(Color.white)
     }
     
     /// 상단 로고
