@@ -24,6 +24,7 @@ struct CreateNicknameView: View {
             contents
                 .padding(.top, 30)
         }
+        .background(Color.white)
     }
     
     /// 내부 컨텐츠
