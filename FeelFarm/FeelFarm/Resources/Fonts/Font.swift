@@ -85,6 +85,10 @@ extension Font {
         return .pretendard(type: .bold, size: 22)
     }
     
+    static var T22Semibold: Font {
+        return .pretendard(type: .semibold, size: 22)
+    }
+    
     static var T22medium: Font {
         return .pretendard(type: .medium, size: 22)
     }
