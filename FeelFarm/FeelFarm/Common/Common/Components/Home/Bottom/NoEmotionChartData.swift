@@ -26,7 +26,7 @@ struct NoEmotionChartData: View {
                 Group {
                     Text("등록된 감정이 없습니다!")
                         .font(.T22bold)
-                        
+                    
                     
                     Text("나의 감정 그래프를 보고 싶다면?")
                         .font(.T14bold)
@@ -36,7 +36,7 @@ struct NoEmotionChartData: View {
                     }, label: {
                         Text("감정 등록하러 가기 👉")
                             .font(.T12medium)
-                            .padding(.vertical, 7)
+                            .padding(.vertical, 10)
                             .padding(.horizontal, 32)
                             .background {
                                 RoundedRectangle(cornerRadius: 30)

@@ -25,14 +25,13 @@ struct EmotionChartView: View {
                 chartPieGraph
                 chartStickGraph
             })
-        }
-        .frame(maxWidth: .infinity, minHeight: 506)
-        .overlay(content: {
+            
             if viewModel.isAllZero {
                 NoEmotionChartData()
                     .environmentObject(container)
             }
-        })
+        }
+        .frame(maxWidth: .infinity, minHeight: 506)
     }
     
     private var chartTitle: some View {

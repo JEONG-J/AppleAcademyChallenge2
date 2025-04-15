@@ -51,7 +51,12 @@ class HomeViewModel {
         emotions.max(by: {$0.value < $1.value}) ?? EmotionChartData(type: .happy, value: 0)
     }
     var isAllZero: Bool {
-        emotions.allSatisfy { $0.value == 0 }
+        guard let stats = emotionStats else {
+            return true
+        }
+        
+        let allValues = stats.values.map { $0.value }
+        return allValues.allSatisfy { $0 == 0 }
     }
     
     func getLatestEmotion(of type: EmotionType) {
