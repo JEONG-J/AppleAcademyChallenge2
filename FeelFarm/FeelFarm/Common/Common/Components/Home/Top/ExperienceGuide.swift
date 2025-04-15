@@ -15,9 +15,9 @@ struct ExperienceGuide: View {
     }
     
     let guideType: GuideType
-    let text: String?
+    let text: String
     
-    init(guideType: GuideType, text: String?) {
+    init(guideType: GuideType, text: String) {
         self.guideType = guideType
         self.text = text
     }
@@ -32,7 +32,7 @@ struct ExperienceGuide: View {
     }
     
     private var noneGuide: some View {
-        Text("기록된 경험이 없습니다. 경험을 작성해주세요!")
+        Text(text)
             .font(.T14medium)
             .foregroundStyle(Color.gray07)
             .frame(maxWidth: .infinity, minHeight: 163)
@@ -41,6 +41,8 @@ struct ExperienceGuide: View {
                     .fill(Color.white)
                     .shadow03()
             }
+            .lineLimit(nil)
+            .lineSpacing(2.5)
     }
     
     private var existenceGuide: some View {
@@ -55,7 +57,6 @@ struct ExperienceGuide: View {
                         .shadow03()
                 }
             
-            if let text = text {
                 Text(text)
                     .frame(width: 284, height: 74)
                     .font(.T13medium)
@@ -63,7 +64,6 @@ struct ExperienceGuide: View {
                     .lineLimit(nil)
                     .lineSpacing(2.5)
                     .multilineTextAlignment(.leading)
-            }
         }
     }
 }

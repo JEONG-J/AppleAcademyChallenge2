@@ -10,6 +10,7 @@ import SwiftUI
 struct FeelFarmTabView: View {
     
     @State var tabcase: TabCase = .home
+    @EnvironmentObject var container: DIContainer
     
     var body: some View {
         TabView(selection: $tabcase, content: {
@@ -34,17 +35,21 @@ struct FeelFarmTabView: View {
     
     @ViewBuilder
         private func tabView(for tab: TabCase) -> some View {
-            switch tab {
-            case .home:
-                Text("홈 화면")
-            case .my:
-                Text("프로필 화면")
-            case .share:
-                Text("설정 화면")
+            Group {
+                switch tab {
+                case .home:
+                    HomeView()
+                case .my:
+                    Text("프로필 화면")
+                case .share:
+                    Text("설정 화면")
+                }
             }
+            .environmentObject(container)
         }
 }
 
 #Preview {
     FeelFarmTabView()
+        .environmentObject(DIContainer())
 }

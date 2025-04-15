@@ -44,4 +44,34 @@ enum EmotionType: String, CaseIterable {
             return .init(.experienceAngry)
         }
     }
+    
+    var emotionColor: Color {
+        switch self {
+        case .happy:
+            return Color.happy
+        case .sad:
+            return Color.sad
+        case .inspiration:
+            return Color.inspiration
+        case .touched:
+            return Color.touched
+        case .angry:
+            return Color.angry
+        }
+    }
+    
+    var emotionKorean: String {
+        switch self {
+        case .happy:
+            return "기쁨"
+        case .sad:
+            return "슬픔"
+        case .inspiration:
+            return "영감"
+        case .touched:
+            return "감동"
+        case .angry:
+            return "분노"
+        }
+    }
 }

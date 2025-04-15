@@ -13,6 +13,7 @@ struct CreateNicknameView: View {
     @EnvironmentObject var appFlowViewModel: AppFlowViewModel
     @Bindable var viewModel: CreateNicknameViewModel = .init()
     @FocusState private var isFocused: Bool
+    @AppStorage("userNickname") private var nickname: String?
     
     
     var body: some View {
@@ -55,6 +56,8 @@ struct CreateNicknameView: View {
                 appFlowViewModel.createUserProfile(uid: uid,
                                                    nickname: viewModel.nickname,
                                                    profileImageName: viewModel.userProfileImage)
+                
+                nickname = viewModel.nickname
             })
         })
         .safeAreaPadding(.horizontal, 16)
