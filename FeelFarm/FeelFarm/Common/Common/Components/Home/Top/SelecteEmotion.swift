@@ -12,10 +12,14 @@ struct SelecteEmotion: View {
     @Bindable var viewModel: HomeViewModel
     
     var body: some View {
-        HStack(spacing: 16, content: {
+        HStack(content: {
             makeGuideText(text: "오늘의 감정은")
             
+            Spacer().frame(maxWidth: 16)
+            
             guideImage
+            
+            Spacer().frame(maxWidth: 16)
             
             makeGuideText(text: "입니다.")
         })

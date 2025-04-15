@@ -14,7 +14,7 @@ struct NavigationRoutingView: View {
     
     var body: some View {
         switch destination {
-        case .test:
+        case .createEmotionView:
             Text("11")
         }
     }

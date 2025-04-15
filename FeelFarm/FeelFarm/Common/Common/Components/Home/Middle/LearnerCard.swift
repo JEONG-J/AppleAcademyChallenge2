@@ -19,6 +19,7 @@ struct LearnerCard: View {
         VStack(spacing: 8, content: {
             sharedEmotion.field.coverImage
                 .resizable()
+                .frame(width: 82, height: 123)
             
             VStack(spacing: 4, content: {
                 Text(sharedEmotion.nickname)
@@ -31,9 +32,8 @@ struct LearnerCard: View {
                     .lineLimit(2)
                     .lineSpacing(1.6)
             })
-            .frame(maxWidth: .infinity)
         })
-        .frame(maxWidth: 100, maxHeight: 191)
+        .frame(width: 82)
     }
 }
 
