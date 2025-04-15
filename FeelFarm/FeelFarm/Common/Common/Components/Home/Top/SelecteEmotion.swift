@@ -12,17 +12,14 @@ struct SelecteEmotion: View {
     @Bindable var viewModel: HomeViewModel
     
     var body: some View {
-        HStack(content: {
+        HStack(spacing: 16, content: {
             makeGuideText(text: "오늘의 감정은")
-            
-            Spacer()
             
             guideImage
             
-            Spacer()
-            
             makeGuideText(text: "입니다.")
         })
+        .frame(maxWidth: .infinity)
     }
     
     private func makeGuideText(text: String) -> some View {

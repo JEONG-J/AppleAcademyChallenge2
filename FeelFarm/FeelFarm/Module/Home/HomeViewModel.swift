@@ -17,6 +17,7 @@ class HomeViewModel {
     var isEmotionPickerPresented: Bool = false
     
     var emotionReponse: EmotionResponse?
+    var sharedEmotion: [SharedEmotion]?
     
     func getLatestEmotion(of type: EmotionType) {
         print("감정 경험 get")
@@ -42,6 +43,24 @@ class HomeViewModel {
                 
                 self.emotionReponse = emotion
                 
+            }
+    }
+    
+    func getSharedEmotoins() {
+        Firestore.firestore()
+            .collection("shared_experience")
+            .order(by: "createAt", descending: true)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("공유 감정 불로오기 실패: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else { return }
+                
+                let emotions = documents.compactMap { SharedEmotion(document: $0) }
+                
+                self.sharedEmotion = emotions
             }
     }
 }
