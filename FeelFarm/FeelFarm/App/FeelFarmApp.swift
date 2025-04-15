@@ -15,8 +15,9 @@ struct FeelFarmApp: App {
     
     var body: some Scene {
         WindowGroup {
-            FeelFarmTabView()
-                .environmentObject(DIContainer())
+            CalendarView(viewModel: .init())
+//            FeelFarmTabView()
+//                .environmentObject(DIContainer())
         }
     }
 }
