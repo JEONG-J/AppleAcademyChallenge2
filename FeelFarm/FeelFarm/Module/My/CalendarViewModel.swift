@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @Observable
 class CalendarViewModel {
@@ -14,10 +15,19 @@ class CalendarViewModel {
     var holidayDates: Set<Date> = []
     var calendar: Calendar
     
-    init(currentMonth: Date = Date(), selectedDate: Date = Date(), calendar: Calendar = Calendar.current) {
+    var currentMonthYear: Int {
+            Calendar.current.component(.year, from: currentMonth)
+        }
+    private var lastRequestedYear: Int?
+    
+    let container: DIContainer
+    var cancellables = Set<AnyCancellable>()
+    
+    init(currentMonth: Date = Date(), selectedDate: Date = Date(), calendar: Calendar = Calendar.current, container: DIContainer) {
         self.currentMonth = currentMonth
         self.selectedDate = selectedDate
         self.calendar = calendar
+        self.container = container
     }
     
     /// 현재 월 변경
@@ -124,6 +134,30 @@ class CalendarViewModel {
         } else {
             selectedDate = date
         }
+    }
+    
+    private func getHoliday(year: Int) {
+        container.userCaseProvider.holidayUsecase.executeGetHoliday(year: year)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("getHoliday Completed")
+                case .failure(let failure):
+                    print("getHoliday Error: \(failure)")
+                }
+            }, receiveValue: { [weak self] responseData in
+                self?.updateHolidayDates(from: responseData.response.body.items.item)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func getHolidayNeed() {
+        let year = currentMonthYear
+        guard year != lastRequestedYear else { return }
+        
+        getHoliday(year: year)
+        lastRequestedYear = year
     }
 }
 

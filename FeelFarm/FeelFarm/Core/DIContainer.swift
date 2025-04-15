@@ -9,8 +9,13 @@ import Foundation
 
 class DIContainer: ObservableObject {
     let navigationRouter: NavigationRouter
+    let userCaseProvider: UseCaseProvider
     
-    init(navigationRouter: NavigationRouter = .init()) {
+    init(
+        navigationRouter: NavigationRouter = .init(),
+        usecaseProvider: UseCaseProvider = .init()
+    ) {
         self.navigationRouter = navigationRouter
+        self.userCaseProvider = usecaseProvider
     }
 }

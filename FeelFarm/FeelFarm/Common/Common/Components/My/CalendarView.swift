@@ -20,6 +20,12 @@ struct CalendarView: View {
         .padding(30)
         .background(Color.white)
         .shadow03()
+        .task {
+            viewModel.getHolidayNeed()
+        }
+        .onChange(of: viewModel.currentMonthYear, { _, _ in
+            viewModel.getHolidayNeed()
+        })
     }
     
     private var hedarController: some View {
@@ -75,5 +81,5 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(viewModel: .init())
+    CalendarView(viewModel: .init(container: DIContainer()))
 }
