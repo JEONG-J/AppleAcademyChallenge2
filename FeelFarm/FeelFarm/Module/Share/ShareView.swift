@@ -25,7 +25,7 @@ struct ShareView: View {
                             ForEach(viewModel.sharedData.indices, id: \.self) { index in
                                 let shareData = viewModel.sharedData[index]
                                 
-                                VStack(spacing: 0) {
+                                VStack(spacing: 10) {
                                     LearnerExperienceCard(shareData: shareData)
                                     
                                     if index < viewModel.sharedData.count - 1 {
