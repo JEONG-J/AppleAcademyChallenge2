@@ -17,9 +17,9 @@ struct CustomCalendar: View {
             
             calendarView
         })
-        .padding(30)
+        .padding(.vertical, 30)
+        .padding(.horizontal, 16)
         .background(Color.white)
-        .shadow03()
         .task {
             viewModel.getHolidayNeed()
         }

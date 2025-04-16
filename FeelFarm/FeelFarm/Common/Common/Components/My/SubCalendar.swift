@@ -19,14 +19,12 @@ struct SubCalendar: View {
         let targetDate = viewModel.selectedDate
         let weekDates = viewModel.weekForDate(targetDate)
         
-        return LazyHGrid(rows: Array(repeating: GridItem(.flexible()), count: 1), spacing: 0) {
+        return LazyHGrid(rows: Array(repeating: GridItem(.flexible()), count: 1), spacing: 5) {
             ForEach(weekDates, id: \.self) { date in
                 Button(action: {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         viewModel.selectedDate = date
                     }
-                    print(viewModel.selectedDate)
-                    print(date)
                 }, label: {
                     weekDate(date: date)
                 })
@@ -43,10 +41,9 @@ struct SubCalendar: View {
                 Text(weekdayFormatter.string(from: date))
             }
             .font(date == viewModel.selectedDate ? .T14Semibold : .T13Regular)
-            .foregroundStyle(date == viewModel.selectedDate ? Color.white : Color.gray04)
+            .foregroundStyle(date == viewModel.selectedDate ? Color.white : dayColor(date: date))
         }
-        .padding(.horizontal, 18)
-        .padding(.vertical, 14)
+        .frame(width: 48, height: 69)
         .background {
             if date == viewModel.selectedDate {
                 Rectangle()
@@ -76,6 +73,21 @@ struct SubCalendar: View {
         formatter.dateFormat = "E"
         return formatter
     }()
+    
+    private func dayColor(date: Date) -> Color {
+        let calendar = viewModel.calendar
+        let weekDay = calendar.component(.weekday, from: date)
+        
+        switch weekDay {
+        case 1:
+            return Color.holiday
+        case 7:
+            return Color.saturday
+        default:
+            return Color.gray04
+        }
+        
+    }
 }
 
 #Preview {

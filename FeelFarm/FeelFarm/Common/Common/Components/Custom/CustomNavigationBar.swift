@@ -10,9 +10,11 @@ import SwiftUI
 struct CustomNavigationBar: View {
     
     let text: String?
+    let action: () -> Void
     
-    init(text: String?) {
+    init(text: String?, action: @escaping () -> Void) {
         self.text = text
+        self.action = action
     }
     
     var body: some View {
@@ -31,7 +33,7 @@ struct CustomNavigationBar: View {
             
             HStack {
                     Button(action: {
-                        print("hello")
+                        action()
                     }, label: {
                         Image(.chevronNavi)
                     })
@@ -40,8 +42,4 @@ struct CustomNavigationBar: View {
         }
         .safeAreaPadding(.horizontal, 16)
     }
-}
-
-#Preview {
-    CustomNavigationBar(text: "Domain 경험 생성")
 }

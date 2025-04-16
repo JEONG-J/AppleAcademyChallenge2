@@ -40,7 +40,7 @@ struct FeelFarmTabView: View {
                 case .home:
                     HomeView()
                 case .my:
-                    Text("프로필 화면")
+                    CalendarView(container: container)
                 case .share:
                     Text("설정 화면")
                 }
@@ -49,7 +49,18 @@ struct FeelFarmTabView: View {
         }
 }
 
-#Preview {
+#Preview("FeelFarmTabView") {
     FeelFarmTabView()
         .environmentObject(DIContainer())
+        .environmentObject(AppFlowViewModel())
+}
+
+#Preview("SplashView") {
+    SplashView()
+        .environmentObject(AppFlowViewModel())
+}
+
+#Preview("CreateNicknameView") {
+    CreateNicknameView()
+        .environmentObject(AppFlowViewModel())
 }

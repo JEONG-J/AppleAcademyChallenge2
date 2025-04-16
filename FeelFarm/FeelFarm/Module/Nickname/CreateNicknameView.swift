@@ -18,7 +18,9 @@ struct CreateNicknameView: View {
     
     var body: some View {
         VStack {
-            CustomNavigationBar(text: "계정 생성")
+            CustomNavigationBar(text: "계정 생성", action: {
+                appFlowViewModel.appState = .login
+            })
             
             Spacer()
             
