@@ -27,7 +27,7 @@ struct DetailExperienceView: View {
                 contents
             })
             .contentMargins(.horizontal, 16, for: .scrollContent)
-            .contentMargins(.bottom, 20)
+            .safeAreaPadding(.top, 20)
         }
         .alert("나의 경험 기록 삭제", isPresented: $isShowDelete, actions: {
             Button("취소", role: .cancel) { isShowDelete.toggle() }
