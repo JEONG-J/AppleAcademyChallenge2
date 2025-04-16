@@ -24,7 +24,7 @@ struct CustomNavigationBar: View {
                     Spacer()
                     
                     Text(text)
-                        .font(.T18medium)
+                        .font(.T20Semibold)
                         .foregroundStyle(Color.black)
                     
                     Spacer()

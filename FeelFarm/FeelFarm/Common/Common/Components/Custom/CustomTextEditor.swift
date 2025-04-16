@@ -32,18 +32,18 @@ struct CustomTextEditor: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .padding(.top, 25)
-            .padding(.horizontal, 17)
+            .padding(.top, 20)
+            .padding(.horizontal, 18)
             .padding(.bottom, 40)
             .background(alignment: .topLeading, content: {
                 if text.isEmpty {
                     Text(makeStyledText(for: placeholder))
                         .lineLimit(nil)
-                        .lineSpacing(10)
-                        .padding(.vertical, 20)
+                        .lineSpacing(2.5)
+                        .padding(.vertical, 22)
                         .padding(.leading, 20)
-                        .padding(.trailing, 100)
-                        .font(.T13Regular)
+                        .padding(.trailing, 10)
+                        .font(.T16Regular)
                         .foregroundStyle(Color.gray04)
                 }
             })
@@ -53,6 +53,7 @@ struct CustomTextEditor: ViewModifier {
             .font(.T16medium)
             .foregroundStyle(Color.black)
             .scrollIndicators(.hidden)
+            .scrollContentBackground(.hidden)
             .overlay(alignment: .bottomTrailing, content: {
                 if isModify {
                     HStack(spacing: 0, content: {
@@ -75,7 +76,7 @@ struct CustomTextEditor: ViewModifier {
             })
     }
     
-    func makeStyledText(for text: String, with font: Font = .T16Regular) -> AttributedString {
+    func makeStyledText(for text: String, with font: Font = .T16bold) -> AttributedString {
         var attributedText = AttributedString(text)
         
         if let aiText = attributedText.range(of: "감자도리 AI") {
