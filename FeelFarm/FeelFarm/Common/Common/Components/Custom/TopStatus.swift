@@ -10,9 +10,9 @@ import SwiftUI
 struct TopStatus: View {
     
     let text: String
-    let action: () -> Void
+    let action: (() -> Void)?
     
-    init(text: String, action: @escaping () -> Void) {
+    init(text: String, action: (() -> Void)?) {
         self.text = text
         self.action = action
     }
@@ -25,14 +25,15 @@ struct TopStatus: View {
             
             Spacer()
             
-            Button(action: {
-                action()
-            }, label: {
-                Image(.plus)
-            })
-            
+            if let action = action {
+                Button(action: {
+                    action()
+                }, label: {
+                    Image(.plus)
+                })
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .bottom)
+        .frame(maxWidth: .infinity, alignment: .bottomLeading)
         .safeAreaPadding(.horizontal, 16)
         .safeAreaPadding(.bottom, 5)
         .background(Color.white)

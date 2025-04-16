@@ -42,7 +42,7 @@ struct FeelFarmTabView: View {
                 case .my:
                     CalendarView(container: container)
                 case .share:
-                    Text("설정 화면")
+                    ShareView()
                 }
             }
             .environmentObject(container)

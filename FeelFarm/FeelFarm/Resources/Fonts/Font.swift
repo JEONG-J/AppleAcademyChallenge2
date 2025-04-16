@@ -149,6 +149,10 @@ extension Font {
         return .pretendard(type: .light, size: 16)
     }
     
+    static var T16Regular: Font {
+        return .pretendard(type: .regular, size: 16)
+    }
+    
     //MARK: - T14
     
     static var T14bold: Font {
@@ -161,6 +165,10 @@ extension Font {
     
     static var T14medium: Font {
         return .pretendard(type: .medium, size: 14)
+    }
+    
+    static var T14Regular: Font {
+        return .pretendard(type: .regular, size: 14)
     }
     
     static var T14Light: Font {
