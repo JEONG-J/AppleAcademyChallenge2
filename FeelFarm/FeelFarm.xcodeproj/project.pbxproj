@@ -281,6 +281,8 @@
 		};
 		5C0F4F622DAB90E70005894F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 5C0F4F552DAB90E60005894F /* FeelFarm */;
+			baseConfigurationReferenceRelativePath = Util/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -313,6 +315,8 @@
 		};
 		5C0F4F632DAB90E70005894F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 5C0F4F552DAB90E60005894F /* FeelFarm */;
+			baseConfigurationReferenceRelativePath = Util/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

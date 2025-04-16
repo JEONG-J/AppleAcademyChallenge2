@@ -15,11 +15,11 @@ struct SelecteEmotion: View {
         HStack(content: {
             makeGuideText(text: "오늘의 감정은")
             
-            Spacer().frame(maxWidth: 16)
+            Spacer()
             
             guideImage
             
-            Spacer().frame(maxWidth: 16)
+            Spacer()
             
             makeGuideText(text: "입니다.")
         })

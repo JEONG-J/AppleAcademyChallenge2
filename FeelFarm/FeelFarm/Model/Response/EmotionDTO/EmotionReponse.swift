@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
+/// 유저 개인 데이터 Response
 struct EmotionResponse: Identifiable {
     var id: String
     var emotion: EmotionType

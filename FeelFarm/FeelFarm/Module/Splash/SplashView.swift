@@ -27,6 +27,8 @@ struct SplashView: View {
             if showLoginButtons {
                 loginGroup
                     .transition(.opacity.combined(with: .blurReplace))
+                
+                Spacer().frame(height: 100)
             }
         }
         .onChange(of: appFlowViewModel.appState, { _, newValue in
@@ -60,26 +62,23 @@ struct SplashView: View {
     
     /// 로그인 버튼 그룹
     private var loginGroup: some View {
-        VStack(spacing: 21, content: {
-            Image(.kakao)
+        
+        Button(action: {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+                print("presentationAnchor를 찾을 수 없음")
+                return
+            }
             
-            Button(action: {
-                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                      let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
-                    print("presentationAnchor를 찾을 수 없음")
-                    return
+            AppleLoginManager.shared.startSignInWithAppleFlow(presentationAnchor: window, completion: { result in
+                if result, let uid = Auth.auth().currentUser?.uid {
+                    appFlowViewModel.checkUserProfile(uid: uid)
+                } else {
+                    print("로그인 실패")
                 }
-                
-                AppleLoginManager.shared.startSignInWithAppleFlow(presentationAnchor: window, completion: { result in
-                    if result, let uid = Auth.auth().currentUser?.uid {
-                        appFlowViewModel.checkUserProfile(uid: uid)
-                    } else {
-                        print("로그인 실패")
-                    }
-                })
-            }, label: {
-                Image(.apple)
             })
+        }, label: {
+            Image(.apple)
         })
     }
 }
