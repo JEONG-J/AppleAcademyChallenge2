@@ -13,36 +13,26 @@ struct ShareView: View {
     @EnvironmentObject var container: DIContainer
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 33) {
-            TopStatus(text: "러너 경험 공유", action: nil)
-            
-            Group {
-            CustomSegment<FieldType>(selectedSegment: $viewModel.selectedSegment)
-                
-                if !viewModel.sharedData.isEmpty {
-                    ScrollView(.vertical, content: {
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 1), spacing: 10) {
-                            ForEach(viewModel.sharedData.indices, id: \.self) { index in
-                                let shareData = viewModel.sharedData[index]
-                                
-                                VStack(spacing: 10) {
-                                    LearnerExperienceCard(shareData: shareData)
-                                    
-                                    if index < viewModel.sharedData.count - 1 {
-                                        Divider()
-                                            .foregroundStyle(Color.gray03)
-                                            .frame(maxWidth: .infinity,  maxHeight: 1)
-                                    }
-                                }
-                            }
-                        }
-                    })
-                    .contentMargins(.bottom, 20)
-                } else {
-                    noExperienceData
-                }
-            }
+        NavigationStack {
+            ScrollView(.vertical, content: {
+                VStack(alignment: .leading, spacing: 33, content: {
+                    CustomSegment<FieldType>(selectedSegment: $viewModel.selectedSegment)
+                    
+                    if !viewModel.sharedData.isEmpty {
+                        contents
+                    } else {
+                        noExperienceData
+                    }
+                })
+            })
             .safeAreaPadding(.horizontal, 16)
+            .contentMargins(.top, 20)
+            .background(Color.white)
+            .navigationTitle(
+                Text("Runner Stories")
+                    .font(.T20Semibold)
+            )
+            .navigationBarTitleDisplayMode(.automatic)
         }
     }
     
@@ -65,8 +55,25 @@ struct ShareView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.top, 16)
         }
-        
         Spacer()
+    }
+    
+    private var contents: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 1), spacing: 10) {
+            ForEach(viewModel.sharedData.indices, id: \.self) { index in
+                let shareData = viewModel.sharedData[index]
+                
+                VStack(spacing: 10) {
+                    LearnerExperienceCard(shareData: shareData)
+                    
+                    if index < viewModel.sharedData.count - 1 {
+                        Divider()
+                            .foregroundStyle(Color.gray03)
+                            .frame(maxWidth: .infinity,  maxHeight: 1)
+                    }
+                }
+            }
+        }
     }
 }
 

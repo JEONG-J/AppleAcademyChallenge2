@@ -16,8 +16,8 @@ struct FeelFarmTabView: View {
         TabView(selection: $tabcase, content: {
             ForEach(TabCase.allCases, id: \.rawValue) { tab in
                 Tab(value: tab, content: {
-                    tabView(for: tab)
-                        .tag(tab)
+                        tabView(for: tab)
+                            .tag(tab)
                 }, label: {
                     VStack(spacing: 5, content: {
                         tab.icon

@@ -28,7 +28,7 @@ struct MyExperienceCard: View {
             Spacer()
             
             Text(emotionReponse.content)
-                .font(.T12medium)
+                .font(.T14medium)
                 .foregroundStyle(Color.black)
                 .lineLimit(nil)
                 .lineSpacing(2.5)

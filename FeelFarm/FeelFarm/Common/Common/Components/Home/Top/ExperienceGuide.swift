@@ -46,25 +46,25 @@ struct ExperienceGuide: View {
     }
     
     private var existenceGuide: some View {
-        ZStack {
-            Image(.versesBorder)
-                .resizable()
-                .frame(maxWidth: .infinity, maxHeight: 150)
-                .padding(20)
-                .background {
+        Text(text.split(separator: "").joined(separator: "\u{200B}"))
+            .font(.T16medium)
+            .foregroundStyle(Color.gray07)
+            .lineLimit(nil)
+            .lineSpacing(2.5)
+            .multilineTextAlignment(.leading)
+            .padding(.vertical, 40)
+            .padding(.horizontal, 30)
+            .background(content: {
+                ZStack(content: {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color.white)
                         .shadow03()
-                }
-            
-                Text(text)
-                    .frame(width: 284, height: 74)
-                    .font(.T13medium)
-                    .foregroundStyle(Color.gray07)
-                    .lineLimit(nil)
-                    .lineSpacing(2.5)
-                    .multilineTextAlignment(.leading)
-        }
+                    
+                    Image(.versesBorder)
+                        .resizable()
+                        .padding(10)
+                })
+            })
     }
 }
 
