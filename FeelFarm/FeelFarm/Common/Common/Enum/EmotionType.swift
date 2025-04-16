@@ -45,6 +45,21 @@ enum EmotionType: String, CaseIterable {
         }
     }
     
+    var createExperience: Image {
+        switch self {
+        case .happy:
+            return .init(.createHappy)
+        case .sad:
+            return .init(.createSad)
+        case .inspiration:
+            return .init(.createInspiration)
+        case .touched:
+            return .init(.createTouched)
+        case .angry:
+            return .init(.createAngle)
+        }
+    }
+    
     var emotionColor: Color {
         switch self {
         case .happy:
