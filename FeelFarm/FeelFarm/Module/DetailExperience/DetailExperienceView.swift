@@ -11,6 +11,7 @@ struct DetailExperienceView: View {
     
     @Bindable var viewModel: DetailExperienceViewModel
     @State var isModify: Bool = false
+    @State var isShowDelete: Bool = false
     
     init(experienceData: EmotionResponse, container: DIContainer) {
         self.viewModel = .init(experienceData: experienceData, container: container)
@@ -28,6 +29,12 @@ struct DetailExperienceView: View {
             .contentMargins(.horizontal, 16, for: .scrollContent)
             .contentMargins(.bottom, 20)
         }
+        .alert("나의 경험 기록 삭제", isPresented: $isShowDelete, actions: {
+            Button("취소", role: .cancel) { isShowDelete.toggle() }
+            Button("삭제", role: .destructive) { print("삭제") }
+        }, message: {
+            Text("기록된 경험을 삭제합니다.")
+        })
     }
     
     private var contents: some View {
@@ -46,9 +53,8 @@ struct DetailExperienceView: View {
     private var bottomBtn: some View {
         HStack {
             MainButton(buttonType: .delete, action: {
-                print("삭제")
+                isShowDelete.toggle()
             })
-            
             Spacer()
             
             MainButton(buttonType: .createOn, action: {
