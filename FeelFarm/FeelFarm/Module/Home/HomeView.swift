@@ -14,7 +14,6 @@ struct HomeView: View {
     
     var body: some View {
         ScrollView(.vertical, content: {
-                
                 VStack(spacing: 40) {
                     userProfile
                     topContents
