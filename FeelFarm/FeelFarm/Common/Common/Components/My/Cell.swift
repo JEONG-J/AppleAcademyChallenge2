@@ -32,17 +32,18 @@ struct Cell: View {
         .onTapGesture {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.5, blendDuration: 0)) {
                 viewModel.changeSelectedDate(calendarDay.date)
+                print(calendarDay.date)
             }
         }
     }
     
     private var textColor: Color {
-        if calendarDay.isHoliday {
+        if calendarDay.isHoliday && calendarDay.isCurrentMonth {
             return Color.holiday
         } else if calendarDay.isCurrentMonth {
             return Color.gray05
         } else {
-            return Color.clear
+            return Color.gray03
         }
     }
 }

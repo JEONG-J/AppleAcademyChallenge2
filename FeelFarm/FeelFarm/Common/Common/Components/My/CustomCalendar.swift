@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CalendarView: View {
+struct CustomCalendar: View {
     
     @Bindable var viewModel: CalendarViewModel
     
@@ -59,9 +59,12 @@ struct CalendarView: View {
             }
             .padding(.bottom, 30)
             
-            ForEach(viewModel.daysForCurrentGrid(), id: \.id) { calendarDay in
+            ForEach(viewModel.daysForCurrentGrid(), id: \.date) { calendarDay in
                 let isSelectedDate = viewModel.calendar.isDate(calendarDay.date, inSameDayAs: viewModel.selectedDate)
                 Cell(calendarDay: calendarDay, isSelected: isSelectedDate, viewModel: viewModel)
+                    .onTapGesture {
+                        print(calendarDay)
+                    }
             }
         })
         .frame(height: 250, alignment: .top)
@@ -81,5 +84,5 @@ struct CalendarView: View {
 }
 
 #Preview {
-    CalendarView(viewModel: .init(container: DIContainer()))
+    CustomCalendar(viewModel: .init(container: DIContainer()))
 }

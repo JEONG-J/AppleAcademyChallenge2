@@ -62,10 +62,15 @@ class CalendarViewModel {
         }
 
         for day in 1...daysInMonth {
-            let validDay = min(day, daysInMonth)
-            if let date = calendar.date(bySetting: .day, value: validDay, of: currentMonth) {
+            var components = calendar.dateComponents([.year, .month], from: currentMonth)
+            components.day = day
+            components.hour = 0
+            components.minute = 0
+            components.second = 0
+            
+            if let date = calendar.date(from: components) {
                 let isHoliday = calendar.isHoliday(date, in: holidayDates)
-                days.append(CalendarDay(day: validDay, date: date, isCurrentMonth: true, isHoliday: isHoliday))
+                days.append(CalendarDay(day: day, date: date, isCurrentMonth: true, isHoliday: isHoliday))
             }
         }
 
