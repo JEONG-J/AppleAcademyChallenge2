@@ -8,15 +8,15 @@
 import Foundation
 import FirebaseFirestore
 
-struct SharedEmotion: Identifiable {
-    let id: String
-    let content: String
-    let emotion: EmotionType
-    let feedback: String
-    let field: FieldType
-    let nickname: String
-    let uid: String
-    let date: Date
+struct SharedEmotion: Identifiable, EmotionProtocol, Equatable {
+    var id: String
+    var content: String
+    var emotion: EmotionType
+    var feedback: String
+    var field: FieldType
+    var nickname: String
+    var uid: String
+    var date: Date
 }
 
 extension SharedEmotion {

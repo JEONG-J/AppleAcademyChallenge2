@@ -14,8 +14,12 @@ struct NavigationRoutingView: View {
     
     var body: some View {
         switch destination {
-        case .createEmotionView:
-            Text("11")
+        case .createExperience(let field):
+            CreateExperience(fieldType: field, container: container)
+        case .myToDetailExpereince(let data):
+            DetailExperienceView(emotionData: data, container: container)
+        case .shareToDetailExperience(let data):
+            DetailExperienceView(emotionData: data, container: container)
         }
     }
 }

@@ -9,10 +9,10 @@ import Foundation
 
 @Observable
 class DetailExperienceViewModel {
-    var experienceData: EmotionResponse
+    var experienceData: any EmotionProtocol
     var container: DIContainer
     
-    init(experienceData: EmotionResponse, container: DIContainer) {
+    init(experienceData: any EmotionProtocol, container: DIContainer) {
         self.experienceData = experienceData
         self.container = container
     }

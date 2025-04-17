@@ -65,6 +65,9 @@ struct ShareView: View {
                 
                 VStack(spacing: 10) {
                     LearnerExperienceCard(shareData: shareData)
+                        .onTapGesture {
+                            container.navigationRouter.push(to: .shareToDetailExperience(experienceData: viewModel.sharedData[index]))
+                        }
                     
                     if index < viewModel.sharedData.count - 1 {
                         Divider()

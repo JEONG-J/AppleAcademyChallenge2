@@ -34,6 +34,11 @@ struct CalendarView: View {
         })
         .scrollIndicators(.visible)
         .contentMargins(.bottom, 20)
+        .sheet(isPresented: $showAddExperience, content: {
+            CreateDragView()
+                .presentationDetents([.fraction(0.4)])
+                .presentationCornerRadius(30)
+        })
     }
     
     private var bottomContents: some View {
@@ -46,6 +51,9 @@ struct CalendarView: View {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 1), spacing: 16, content: {
                     ForEach(viewModel.myExperienceData, id: \.id) { emotionReponse in
                         MyExperienceCard(emotionReponse: emotionReponse)
+                            .onTapGesture {
+                                container.navigationRouter.push(to: .myToDetailExpereince(experienceData: emotionReponse))
+                            }
                     }
                 })
             } else {
