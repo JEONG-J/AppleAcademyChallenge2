@@ -54,7 +54,6 @@ struct CreateDragView: View {
             }
         })
     }
-    
 }
 
 #Preview {
