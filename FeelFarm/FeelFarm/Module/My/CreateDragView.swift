@@ -8,8 +8,51 @@
 import SwiftUI
 
 struct CreateDragView: View {
+    
+    @EnvironmentObject var container: DIContainer
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 20, content: {
+            
+            Capsule()
+                .fill(Color.gray03)
+                .frame(width: 49, height: 3)
+            
+            
+            Text("경험 생성하기")
+                .font(.T18bold)
+                .foregroundStyle(Color.black)
+            
+            fieldList
+            
+            Spacer()
+        })
+        .safeAreaPadding(.horizontal, 32)
+        .safeAreaPadding(.top, 21)
+    }
+    
+    private var fieldList: some View {
+        VStack(alignment: .leading, spacing: 16, content: {
+            ForEach(FieldType.allCases, id: \.self) { field in
+                Button(action: {
+                    container.navigationRouter.push(to: .createExperience(field: field))
+                }, label: {
+                    HStack(spacing: 9, content: {
+                        field.createIcon
+                        
+                        Text(field.createText)
+                            .font(.T14medium)
+                            .foregroundStyle(Color.gray07)
+                    })
+                })
+                
+                if field != .design {
+                    Divider()
+                        .foregroundStyle(Color.gray02)
+                        .frame(maxWidth: .infinity, maxHeight: 1)
+                }
+            }
+        })
     }
 }
 

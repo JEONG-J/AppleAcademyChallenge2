@@ -7,6 +7,8 @@
 
 import Foundation
 
-enum NavigationDestination: Equatable, Hashable {
-    case createEmotionView
+enum NavigationDestination: Equatable {
+    case createExperience(field: FieldType)
+    case shareToDetailExperience(experienceData: SharedEmotion)
+    case myToDetailExpereince(experienceData: EmotionResponse)
 }

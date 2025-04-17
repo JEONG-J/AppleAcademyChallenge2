@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct EmotionData: Identifiable {
+struct EmotionData: Identifiable, Equatable {
     var id: UUID = .init()
     var emotionType: EmotionType
 }

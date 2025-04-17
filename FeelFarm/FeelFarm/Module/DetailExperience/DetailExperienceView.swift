@@ -13,8 +13,8 @@ struct DetailExperienceView: View {
     @State var isModify: Bool = false
     @State var isShowDelete: Bool = false
     
-    init(experienceData: EmotionResponse, container: DIContainer) {
-        self.viewModel = .init(experienceData: experienceData, container: container)
+    init(emotionData: any EmotionProtocol, container: DIContainer) {
+        self.viewModel = .init(experienceData: emotionData, container: container)
     }
     
     var body: some View {
@@ -62,8 +62,4 @@ struct DetailExperienceView: View {
             })
         }
     }
-}
-
-#Preview {
-    DetailExperienceView(experienceData: .init(id: "1", emotion: .happy, content: "오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오늘 나는 도메인으로 작성된 무엇무엇오", feedback: "오늘도 힘내요 ~ 화이팅 이라구", date: Date(), field: .design, sharePostId: "11"), container: DIContainer())
 }

@@ -32,7 +32,8 @@ struct NoEmotionChartData: View {
                         .font(.T14bold)
                     
                     Button(action: {
-                        container.navigationRouter.push(to: .createEmotionView)
+                        //TODO: - 네비게이션 경로 다른 거 만들어서 지정
+//                        container.navigationRouter.push(to: .createEmotionView)
                     }, label: {
                         Text("감정 등록하러 가기 👉")
                             .font(.T12medium)
