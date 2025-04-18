@@ -33,12 +33,18 @@ struct MainButton: View {
     }
     
     enum ButtonType {
+        case modify
+        case modifyCompleted
         case createOn
         case createOff
         case delete
         
         var text: String {
             switch self {
+            case .modify:
+                return "수정하기"
+            case .modifyCompleted:
+                return "수정 완료"
             case .createOn, .createOff:
                 return "생성하기"
             case .delete:
@@ -48,7 +54,7 @@ struct MainButton: View {
         
         var background: Color {
             switch self {
-            case .createOn:
+            case .createOn, .modify, .modifyCompleted:
                 return .feelFarmOrange
             case .createOff:
                 return .gray06

@@ -13,6 +13,8 @@ struct EmotionChartView: View {
     @Bindable var viewModel: HomeViewModel
     @EnvironmentObject var container: DIContainer
     @AppStorage("userNickname") private var nickname: String?
+    @Binding var tabCase: TabCase
+    @Binding var myTabShowPlushSheet: Bool
     
     var body: some View {
         ZStack {
@@ -26,10 +28,10 @@ struct EmotionChartView: View {
                 chartStickGraph
             })
             
-            if viewModel.isAllZero {
-                NoEmotionChartData()
-                    .environmentObject(container)
-            }
+//            if viewModel.isAllZero {
+//                NoEmotionChartData(selectedTab: $tabCase, showPlusSheet: $myTabShowPlushSheet)
+//                    .environmentObject(container)
+//            }
         }
         .frame(maxWidth: .infinity, minHeight: 506)
     }
@@ -102,9 +104,4 @@ struct EmotionChartView: View {
             }
         })
     }
-}
-
-#Preview {
-    EmotionChartView(viewModel: .init())
-        .environmentObject(DIContainer())
 }

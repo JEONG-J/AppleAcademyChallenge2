@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CreateExperience: View {
+struct CreateExperienceView: View {
     
     @Bindable var viewModel: CreateExperienceViewModel
     
@@ -16,34 +16,33 @@ struct CreateExperience: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading, spacing: 40) {
-                CustomNavigationBar(text: "\(viewModel.fieldType.title) 경험 생성", action: {
-                    viewModel.container.navigationRouter.pop()
-                })
+        VStack(alignment: .leading) {
+            
+            Spacer().frame(height: 40)
+            
+            makeTextView(text: "오늘 어떤 순간이 마음에 남았나요?")
+            
+            ZStack(alignment: .topLeading) {
+                CustomDropBox(viewModel: viewModel).zIndex(1)
                 
-                VStack(alignment: .leading) {
-                    makeTextView(text: "오늘 어떤 순간이 마음에 남았나요?")
-                    
-                    ZStack(alignment: .topLeading) {
-                        CustomDropBox(viewModel: viewModel).zIndex(1)
-                        
-                        secondContents.zIndex(0)
-                            .offset(y: 100)
-                    }
-                    
-                    Spacer()
-                    
-                    MainButton(buttonType: .createOn, action: {
-                        print("생성하기")
-                    })
-                }
-                .safeAreaPadding(.horizontal, 16)
+                secondContents.zIndex(0)
+                    .offset(y: 100)
             }
+            
+            Spacer()
+            
+            MainButton(buttonType: .createOn, action: {
+                viewModel.container.navigationRouter.pop()
+            })
         }
+        .safeAreaPadding(.horizontal, 16)
+        .navigationBarBackButtonHidden()
         .task {
             UIApplication.shared.hideKeyboard()
         }
+        .customToolbar(title: "\(viewModel.fieldType.titleEnglish) 경험 생성", action: {
+            viewModel.container.navigationRouter.pop()
+        })
     }
     
     private var secondContents: some View {
@@ -64,5 +63,5 @@ struct CreateExperience: View {
 }
 
 #Preview {
-    CreateExperience(fieldType: .design, container: DIContainer())
+    CreateExperienceView(fieldType: .design, container: DIContainer())
 }

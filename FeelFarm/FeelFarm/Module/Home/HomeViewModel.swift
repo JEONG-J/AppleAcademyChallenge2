@@ -19,12 +19,12 @@ class HomeViewModel {
     var emotionReponse: EmotionResponse? = .init(id: "0", emotion: .happy, content: "오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!으아아앙으아아아아ㅡ앙아ㅏ아으아아아아ㅡ아아아으아아아으아아앙", feedback: "으아아", date: .now, field: .design, sharePostId: "11")
     var sharedEmotion: [SharedEmotion]? = [
         .init(id: "1", content: "우선순위가 계속 바뀌는 바람에..", emotion: .sad, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "2", content: "피그마 사용법을 공부했는데 참고..", emotion: .touched, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "3", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
+        .init(id: "2", content: "피그마 사용법을 공부했는데 참고..", emotion: .touched, feedback: "정말 잘했어요!", field: .tech, nickname: "제옹", uid: "123", date: .now),
+        .init(id: "3", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .domain, nickname: "지나", uid: "123", date: .now),
         .init(id: "4", content: "블라블블라블블라블블라블블라..", emotion: .happy, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "5", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "6", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "7", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now)
+        .init(id: "5", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .design, nickname: "블라블라", uid: "123", date: .now),
+        .init(id: "6", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .tech, nickname: "킨더", uid: "123", date: .now),
+        .init(id: "7", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .domain, nickname: "엠마", uid: "123", date: .now)
     ]
     
     var emotionStats: EmotionStats?

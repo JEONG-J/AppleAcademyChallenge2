@@ -10,6 +10,7 @@ import SwiftUI
 struct CreateDragView: View {
     
     @EnvironmentObject var container: DIContainer
+    @Binding var showAddExperience: Bool
     
     var body: some View {
         VStack(spacing: 20, content: {
@@ -36,6 +37,7 @@ struct CreateDragView: View {
             ForEach(FieldType.allCases, id: \.self) { field in
                 Button(action: {
                     container.navigationRouter.push(to: .createExperience(field: field))
+                    showAddExperience = false
                 }, label: {
                     HStack(spacing: 9, content: {
                         field.createIcon
@@ -54,8 +56,4 @@ struct CreateDragView: View {
             }
         })
     }
-}
-
-#Preview {
-    CreateDragView()
 }

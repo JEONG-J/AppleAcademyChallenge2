@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct SharedEmotion: Identifiable, EmotionProtocol, Equatable {
+struct SharedEmotion: Identifiable, EmotionProtocol, Hashable, Equatable {
     var id: String
     var content: String
     var emotion: EmotionType

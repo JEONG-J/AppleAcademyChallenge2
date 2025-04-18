@@ -13,27 +13,25 @@ struct ShareView: View {
     @EnvironmentObject var container: DIContainer
     
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical, content: {
-                VStack(alignment: .leading, spacing: 33, content: {
-                    CustomSegment<FieldType>(selectedSegment: $viewModel.selectedSegment)
-                    
-                    if !viewModel.sharedData.isEmpty {
-                        contents
-                    } else {
-                        noExperienceData
-                    }
-                })
+        ScrollView(.vertical, content: {
+            VStack(alignment: .leading, spacing: 33, content: {
+                
+                Text("러너 이야기")
+                    .font(.T24bold)
+                    .foregroundStyle(Color.black)
+                
+                CustomSegment<FieldType>(selectedSegment: $viewModel.selectedSegment)
+                
+                if !viewModel.sharedData.isEmpty {
+                    contents
+                } else {
+                    noExperienceData
+                }
             })
-            .safeAreaPadding(.horizontal, 16)
-            .contentMargins(.top, 20)
-            .background(Color.white)
-            .navigationTitle(
-                Text("Runner Stories")
-                    .font(.T20Semibold)
-            )
-            .navigationBarTitleDisplayMode(.automatic)
-        }
+        })
+        .safeAreaPadding(.horizontal, 16)
+        .contentMargins(.top, 20)
+        .background(Color.white)
     }
     
     @ViewBuilder

@@ -21,8 +21,10 @@ class CalendarViewModel {
     var currentMonthYear: Int {
             Calendar.current.component(.year, from: currentMonth)
         }
+    
     private var lastRequestedYear: Int?
     
+    var getHolidaySwitch: Bool = true
     let container: DIContainer
     var cancellables = Set<AnyCancellable>()
     
@@ -145,6 +147,9 @@ class CalendarViewModel {
     }
     
     private func getHoliday(year: Int) {
+        
+        guard getHolidaySwitch else { return }
+        
         container.userCaseProvider.holidayUsecase.executeGetHoliday(year: year)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
@@ -156,6 +161,7 @@ class CalendarViewModel {
                 }
             }, receiveValue: { [weak self] responseData in
                 self?.updateHolidayDates(from: responseData.response.body.items.item)
+                self?.getHolidaySwitch = false
             })
             .store(in: &cancellables)
     }

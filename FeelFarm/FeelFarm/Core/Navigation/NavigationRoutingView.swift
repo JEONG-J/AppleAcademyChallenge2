@@ -15,7 +15,7 @@ struct NavigationRoutingView: View {
     var body: some View {
         switch destination {
         case .createExperience(let field):
-            CreateExperience(fieldType: field, container: container)
+            CreateExperienceView(fieldType: field, container: container)
         case .myToDetailExpereince(let data):
             DetailExperienceView(emotionData: data, container: container)
         case .shareToDetailExperience(let data):
