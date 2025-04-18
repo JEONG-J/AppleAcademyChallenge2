@@ -18,22 +18,23 @@ struct DetailExperienceView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            CustomNavigationBar(text: "경험 상세 화면", action: {
-                viewModel.container.navigationRouter.pop()
-            })
-            
             ScrollView(.vertical, content: {
                 contents
             })
             .contentMargins(.horizontal, 16, for: .scrollContent)
             .safeAreaPadding(.top, 20)
-        }
         .alert("나의 경험 기록 삭제", isPresented: $isShowDelete, actions: {
             Button("취소", role: .cancel) { isShowDelete.toggle() }
-            Button("삭제", role: .destructive) { print("삭제") }
+            Button("삭제", role: .destructive) {
+                viewModel.container.navigationRouter.pop()
+            }
         }, message: {
             Text("기록된 경험을 삭제합니다.")
+        })
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        .customToolbar(title: "경험 상세 화면", action: {
+            viewModel.container.navigationRouter.pop()
         })
     }
     
@@ -57,8 +58,8 @@ struct DetailExperienceView: View {
             })
             Spacer()
             
-            MainButton(buttonType: .createOn, action: {
-                print("수정하기")
+            MainButton(buttonType: isModify ? .modify : .modifyCompleted, action: {
+                self.isModify.toggle()
             })
         }
     }

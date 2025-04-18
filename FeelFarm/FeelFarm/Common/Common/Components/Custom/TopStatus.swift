@@ -36,6 +36,7 @@ struct TopStatus: View {
         .frame(maxWidth: .infinity, alignment: .bottomLeading)
         .safeAreaPadding(.horizontal, 16)
         .safeAreaPadding(.bottom, 5)
+        .padding(.top, 25)
         .background(Color.white)
     }
 }

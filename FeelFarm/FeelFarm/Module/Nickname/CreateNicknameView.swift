@@ -17,17 +17,13 @@ struct CreateNicknameView: View {
     
     
     var body: some View {
-        VStack {
-            CustomNavigationBar(text: "계정 생성", action: {
-                appFlowViewModel.appState = .login
-            })
-            
-            Spacer()
-            
+        NavigationStack {
             contents
                 .padding(.top, 30)
+                .customToolbar(title: nil, action: {
+                    appFlowViewModel.appState = .login
+                })
         }
-        .background(Color.white)
     }
     
     /// 내부 컨텐츠
@@ -62,6 +58,7 @@ struct CreateNicknameView: View {
                 nickname = viewModel.nickname
             })
         })
+        .background(Color.white)
         .safeAreaPadding(.horizontal, 16)
         .task {
             isFocused = true

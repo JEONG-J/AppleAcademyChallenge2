@@ -11,20 +11,22 @@ struct HomeView: View {
     
     var viewModel: HomeViewModel = .init()
     @EnvironmentObject var container: DIContainer
+    @Binding var tabCase: TabCase
+    @Binding var myTabShowPlushSheet: Bool
     
     var body: some View {
-        ScrollView(.vertical, content: {
+            ScrollView(.vertical, content: {
                 VStack(spacing: 40) {
                     userProfile
                     topContents
                     middleContents
-                    EmotionChartView(viewModel: viewModel)
+                    EmotionChartView(viewModel: viewModel, tabCase: $tabCase, myTabShowPlushSheet: $myTabShowPlushSheet)
                         .environmentObject(container)
                 }
-            .safeAreaPadding(.horizontal, 16)
-        })
-        .safeAreaPadding(.bottom, 20)
-        .background(Color.white)
+                .safeAreaPadding(.horizontal, 16)
+            })
+            .safeAreaPadding(.bottom, 20)
+            .background(Color.white)
     }
     
     private var userProfile: some View {
@@ -67,6 +69,11 @@ struct HomeView: View {
                     LazyHGrid(rows: Array(repeating: GridItem(.flexible()), count: 1), spacing: 16, content: {
                         ForEach(sharedEmotions, id: \.id) { sharedEmotion in
                             LearnerCard(sharedEmotion: sharedEmotion)
+                                .onTapGesture {
+                                    print("러너들의 경험 공유 클릭")
+                                    container.navigationRouter.push(to: .shareToDetailExperience(experienceData: sharedEmotion))
+                                    print(container.navigationRouter.destination)
+                                }
                         }
                     })
                     .frame(height: 200)
@@ -93,7 +100,6 @@ extension HomeView {
 }
 
 #Preview {
-    HomeView()
+    HomeView(viewModel: .init(), tabCase: .constant(.home), myTabShowPlushSheet: .constant(false))
         .environmentObject(DIContainer())
 }
-

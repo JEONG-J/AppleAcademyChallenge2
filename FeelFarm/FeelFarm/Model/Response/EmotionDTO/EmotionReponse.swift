@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 /// 유저 개인 데이터 Response
-struct EmotionResponse: Identifiable, EmotionProtocol, Hashable {
+struct EmotionResponse: Identifiable, EmotionProtocol, Hashable, Equatable {
     var id: String
     var emotion: EmotionType
     var content: String

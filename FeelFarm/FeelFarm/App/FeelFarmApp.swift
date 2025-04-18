@@ -12,11 +12,13 @@ import FirebaseCore
 struct FeelFarmApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var container: DIContainer = .init()
+    @StateObject var appFlowViewModel: AppFlowViewModel = .init()
     
     var body: some Scene {
         WindowGroup {
             FeelFarmTabView()
-                .environmentObject(DIContainer())
+                .environmentObject(container)
         }
     }
 }

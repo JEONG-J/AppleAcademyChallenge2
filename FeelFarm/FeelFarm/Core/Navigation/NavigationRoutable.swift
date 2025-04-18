@@ -15,8 +15,9 @@ protocol NavigationRoutable {
 }
 
 
-final class NavigationRouter: NavigationRoutable, ObservableObject {
-    @Published var destination: [NavigationDestination] = []
+@Observable
+class NavigationRouter: NavigationRoutable {
+    var destination: [NavigationDestination] = []
     
     func push(to view: NavigationDestination) {
         destination.append(view)

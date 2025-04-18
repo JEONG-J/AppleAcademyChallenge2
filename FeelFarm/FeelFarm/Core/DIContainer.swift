@@ -8,7 +8,7 @@
 import Foundation
 
 class DIContainer: ObservableObject {
-    let navigationRouter: NavigationRouter
+    @Published var navigationRouter: NavigationRouter
     let userCaseProvider: UseCaseProvider
     
     init(

@@ -10,35 +10,36 @@ import SwiftUI
 struct CalendarView: View {
     
     var viewModel: CalendarViewModel
-    @State var showAddExperience: Bool = false
+    @Binding var showAddExperience: Bool
     @EnvironmentObject var container: DIContainer
     
-    init(container: DIContainer) {
+    init(showAddExperience: Binding<Bool>, container: DIContainer) {
+        self._showAddExperience = showAddExperience
         self.viewModel = .init(container: container)
     }
     
     var body: some View {
-        ScrollView(.vertical, content: {
-            VStack(spacing: 12, content: {
-                TopStatus(text: "나의 경험", action: {
-                    showAddExperience = true
+            ScrollView(.vertical, content: {
+                VStack(spacing: 12, content: {
+                    TopStatus(text: "나의 경험", action: {
+                        showAddExperience = true
+                    })
+                    
+                    CustomCalendar(viewModel: viewModel)
+                    
+                    SubCalendar(viewModel: viewModel)
+                    
+                    bottomContents
                 })
-                
-                CustomCalendar(viewModel: viewModel)
-                
-                SubCalendar(viewModel: viewModel)
-                
-                bottomContents
+                .background(Color.gray01)
             })
-            .background(Color.gray01)
-        })
-        .scrollIndicators(.visible)
-        .contentMargins(.bottom, 20)
-        .sheet(isPresented: $showAddExperience, content: {
-            CreateDragView()
-                .presentationDetents([.fraction(0.4)])
-                .presentationCornerRadius(30)
-        })
+            .scrollIndicators(.visible)
+            .contentMargins(.bottom, 20)
+            .sheet(isPresented: $showAddExperience, content: {
+                CreateDragView(showAddExperience: $showAddExperience)
+                    .presentationDetents([.fraction(0.4)])
+                    .presentationCornerRadius(30)
+            })
     }
     
     private var bottomContents: some View {
@@ -82,13 +83,8 @@ struct CalendarView: View {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
-
+        
         let dateString = formatter.string(from: Date())
         return dateString
     }()
-}
-
-#Preview {
-    CalendarView(container: DIContainer())
-        .environmentObject(DIContainer())
 }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum FieldType: String ,CaseIterable, SegmentType, Equatable {
+enum FieldType: String ,CaseIterable, SegmentType, Hashable, Equatable {
     case domain = "도메인"
     case tech =  "테크"
     case design = "디자인"
@@ -32,6 +32,17 @@ enum FieldType: String ,CaseIterable, SegmentType, Equatable {
             return "테크"
         case .design:
             return "디자인"
+        }
+    }
+    
+    var titleEnglish: String {
+        switch self {
+        case .domain:
+            return "Domain"
+        case .tech:
+            return "Tech"
+        case .design:
+            return "Design"
         }
     }
     

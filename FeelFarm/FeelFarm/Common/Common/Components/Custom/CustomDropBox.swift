@@ -18,11 +18,11 @@ struct CustomDropBox: View {
 
                if showDrobBox {
                    dropBox
-                       .offset(y: 54) // mainControl의 높이 + padding만큼 아래로
+                       .offset(y: 54)
                        .zIndex(1)
                }
            }
-           .frame(minHeight: 222, alignment: .top) // 필요시 조정
+           .frame(minHeight: 222, alignment: .top)
        }
     
     private var mainControl: some View {

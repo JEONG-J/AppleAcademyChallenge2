@@ -10,27 +10,34 @@ import SwiftUI
 struct FeelFarmTabView: View {
     
     @State var tabcase: TabCase = .home
+    @State var myTabShowPlushSheet: Bool = false
     @EnvironmentObject var container: DIContainer
     
     var body: some View {
-        TabView(selection: $tabcase, content: {
-            ForEach(TabCase.allCases, id: \.rawValue) { tab in
-                Tab(value: tab, content: {
+        NavigationStack(path: $container.navigationRouter.destination) {
+            TabView(selection: $tabcase, content: {
+                ForEach(TabCase.allCases, id: \.rawValue) { tab in
+                    Tab(value: tab, content: {
                         tabView(for: tab)
                             .tag(tab)
-                }, label: {
-                    VStack(spacing: 5, content: {
-                        tab.icon
-                            .renderingMode(.template)
+                    }, label: {
+                        VStack(spacing: 5, content: {
+                            tab.icon
+                                .renderingMode(.template)
+                            
+                            Text(tab.rawValue)
+                                .font(.T12medium)
+                        })
                         
-                        Text(tab.rawValue)
-                            .font(.T12medium)
                     })
-                    
-                })
-            }
-        })
-        .tint(Color.feelFarmOrange)
+                }
+            })
+            .tint(Color.feelFarmOrange)
+            .navigationDestination(for: NavigationDestination.self, destination: { destination in
+                NavigationRoutingView(destination: destination)
+                    .environmentObject(container)
+            })
+        }
     }
     
     @ViewBuilder
@@ -38,11 +45,13 @@ struct FeelFarmTabView: View {
             Group {
                 switch tab {
                 case .home:
-                    HomeView()
+                    HomeView(tabCase: $tabcase, myTabShowPlushSheet: $myTabShowPlushSheet)
                 case .my:
-                    CalendarView(container: container)
+                    CalendarView(showAddExperience: $myTabShowPlushSheet, container: container)
                 case .share:
                     ShareView()
+                        .navigationTitle("Starbucks® Online Store")
+                        .navigationBarTitleDisplayMode(.inline) // 상단에 타이틀을 작게 표시
                 }
             }
             .environmentObject(container)
@@ -52,7 +61,6 @@ struct FeelFarmTabView: View {
 #Preview("FeelFarmTabView") {
     FeelFarmTabView()
         .environmentObject(DIContainer())
-        .environmentObject(AppFlowViewModel())
 }
 
 #Preview("SplashView") {
