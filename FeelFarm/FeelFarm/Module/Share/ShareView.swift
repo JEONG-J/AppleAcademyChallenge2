@@ -9,28 +9,39 @@ import SwiftUI
 
 struct ShareView: View {
     
+    @State var headerOffsets: (CGFloat, CGFloat) = (0, 0)
     @Bindable var viewModel: ShareViewModel = .init()
     @EnvironmentObject var container: DIContainer
     
     var body: some View {
         ScrollView(.vertical, content: {
-            VStack(alignment: .leading, spacing: 33, content: {
+
+            VStack(spacing: 0) {
+                headerView()
                 
-                Text("러너 이야기")
-                    .font(.T24bold)
-                    .foregroundStyle(Color.black)
-                
-                CustomSegment<FieldType>(selectedSegment: $viewModel.selectedSegment)
-                
-                if !viewModel.sharedData.isEmpty {
-                    contents
-                } else {
-                    noExperienceData
-                }
-            })
+                LazyVStack(alignment: .leading, spacing: 33, pinnedViews: [.sectionHeaders], content: {
+                    Section(content: {
+                        CustomSegment<FieldType>(selectedSegment: $viewModel.selectedSegment)
+                        
+                        if !viewModel.sharedData.isEmpty {
+                            contents
+                        } else {
+                            noExperienceData
+                        }
+                    }, header: {
+                        pinnedHeaderView()
+                            .modifier(OffsetModifier(offset: $headerOffsets.0, returnromStart: false))
+                            .modifier(OffsetModifier(offset: $headerOffsets.1))
+                    })
+                })
+                .safeAreaPadding(.horizontal, 16)
+                .contentMargins(.top, 20)
+                .padding(.bottom, 100)
+            }
+
         })
-        .safeAreaPadding(.horizontal, 16)
-        .contentMargins(.top, 20)
+        .ignoresSafeArea()
+        .coordinateSpace(name: "SCROLL")
         .background(Color.white)
     }
     
@@ -75,6 +86,41 @@ struct ShareView: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    private func headerView() -> some View {
+        GeometryReader { proxy in
+            let minY = proxy.frame(in: .named("SCROLL")).minY
+            let size = proxy.size
+            let height = size.height + minY
+            
+            Rectangle()
+                .fill(Color.white)
+                .frame(width: size.width, height: height, alignment: .top)
+                .offset(y: -minY)
+        }
+        .frame(height: 10)
+    }
+    
+    @ViewBuilder
+    private func pinnedHeaderView() -> some View {
+        HStack {
+            if headerOffsets.0 < -60 {
+                Spacer()
+            }
+            
+            Text("Learners Story")
+                .font(headerOffsets.0 < -60 ? .T16Semibold : .T24bold)
+                .animation(.easeInOut(duration: 0.4), value: headerOffsets.0)
+            
+            Spacer()
+            
+        }
+        .frame(height: 90, alignment: .bottomLeading)
+        .safeAreaPadding(.bottom, headerOffsets.0 < -60 ? 20 : 0)
+        .background(Color.white)
+        .shadow04(isActive: headerOffsets.0 < -60)
     }
 }
 

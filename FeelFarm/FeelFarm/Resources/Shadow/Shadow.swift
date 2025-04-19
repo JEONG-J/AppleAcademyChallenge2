@@ -31,9 +31,11 @@ struct Shadow03: ViewModifier {
 }
 
 struct Shadow04: ViewModifier {
+    let isActive: Bool
+    
     func body(content: Content) -> some View {
         content
-            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
+            .shadow(color: .black.opacity(isActive ? 0.1 : 0), radius: 2, x: 0, y: 0)
     }
 }
 
@@ -50,7 +52,7 @@ extension View {
         self.modifier(Shadow03())
     }
     
-    func shadow04() -> some View {
-        self.modifier(Shadow04())
+    func shadow04(isActive: Bool = true) -> some View {
+        self.modifier(Shadow04(isActive: isActive))
     }
 }
