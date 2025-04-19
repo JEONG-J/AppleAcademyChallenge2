@@ -10,6 +10,8 @@ import SwiftUI
 struct CalendarView: View {
     
     var viewModel: CalendarViewModel
+    
+    @State private var headerOffsets: (CGFloat, CGFloat) = (0, 0)
     @Binding var showAddExperience: Bool
     @EnvironmentObject var container: DIContainer
     
@@ -19,27 +21,44 @@ struct CalendarView: View {
     }
     
     var body: some View {
-            ScrollView(.vertical, content: {
-                VStack(spacing: 12, content: {
-                    TopStatus(text: "나의 경험", action: {
-                        showAddExperience = true
+        ScrollView(.vertical, content: {
+            
+            VStack(spacing: 0) {
+                
+                headerView()
+                
+                LazyVStack(spacing: 12, pinnedViews: [.sectionHeaders] ,content: {
+                    Section(content: {
+                        CustomCalendar(viewModel: viewModel)
+                        
+                        SubCalendar(viewModel: viewModel)
+                        
+                        bottomContents
+                    }, header: {
+                        pinnedHeaderView()
+                            .modifier(OffsetModifier(offset: $headerOffsets.0, returnromStart: false))
+                            .modifier(OffsetModifier(offset: $headerOffsets.1))
                     })
-                    
-                    CustomCalendar(viewModel: viewModel)
-                    
-                    SubCalendar(viewModel: viewModel)
-                    
-                    bottomContents
                 })
                 .background(Color.gray01)
-            })
-            .scrollIndicators(.visible)
-            .contentMargins(.bottom, 20)
-            .sheet(isPresented: $showAddExperience, content: {
-                CreateDragView(showAddExperience: $showAddExperience)
-                    .presentationDetents([.fraction(0.4)])
-                    .presentationCornerRadius(30)
-            })
+                .padding(.bottom, 80)
+            }
+        })
+        .overlay(content: {
+            Rectangle()
+                .fill(Color.white)
+                .frame(height: 50)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .opacity(headerOffsets.0 < 5 ? 1 : 0)
+        })
+        .ignoresSafeArea()
+        .coordinateSpace(name: "SCROLL")
+        .scrollIndicators(.visible)
+        .sheet(isPresented: $showAddExperience, content: {
+            CreateDragView(showAddExperience: $showAddExperience)
+                .presentationDetents([.fraction(0.4)])
+                .presentationCornerRadius(30)
+        })
     }
     
     private var bottomContents: some View {
@@ -87,4 +106,52 @@ struct CalendarView: View {
         let dateString = formatter.string(from: Date())
         return dateString
     }()
+    
+    @ViewBuilder
+    private func headerView() -> some View {
+        GeometryReader { proxy in
+            let minY = proxy.frame(in: .named("SCROLL")).minY
+            let size = proxy.size
+            let height = (size.height + minY)
+            
+           Rectangle()
+            .fill(Color.white)
+            .frame(width: size.width, height: height, alignment: .top)
+            .offset(y: -minY)
+        }
+        .frame(height: 10)
+    }
+    
+    @ViewBuilder
+    private func pinnedHeaderView() -> some View {
+        ZStack {
+            HStack {
+                Text("나의 경험")
+                    .font(headerOffsets.0 < -60 ? .T20Semibold : .T24bold)
+                    .foregroundStyle(Color.black)
+                    .frame(maxWidth: .infinity, alignment: headerOffsets.0 < -60 ? .center : .bottomLeading)
+                    .animation(.easeInOut(duration: 0.3), value: headerOffsets.0)
+            }
+            .padding(.horizontal, 16)
+            
+            HStack {
+                Spacer()
+                
+                Button(action: {
+                    showAddExperience = true
+                }, label: {
+                    Image(.plus)
+                })
+            }
+            .padding(.horizontal, 16)
+        }
+        .padding(.bottom, 10)
+        .frame(height: 110, alignment: .bottom)
+        .background(Color.white)
+        .shadow04(isActive: headerOffsets.0 < -60)
+    }
+}
+
+#Preview {
+    CalendarView(showAddExperience: .constant(false), container: DIContainer())
 }

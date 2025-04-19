@@ -15,7 +15,14 @@ class CalendarViewModel {
     var holidayDates: Set<Date> = []
     var calendar: Calendar
     var myExperienceData: [EmotionResponse] = [
-        .init(id: "1", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1")
+        .init(id: "1", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1"),
+        .init(id: "2", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1"),
+        .init(id: "3", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1"),
+        .init(id: "4", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1"),
+        .init(id: "5", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1"),
+        .init(id: "6", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1"),
+        .init(id: "7", emotion: .happy, content: "오늘 피그마로 챌린지 디자인을 하는데 너무 죽을 거 같아요.. 근데 재밌네요 ㅎㅎ", feedback: "호호 어렵죠?", date: Date(), field: .design, sharePostId: "1")
+        
     ]
     
     var currentMonthYear: Int {

@@ -50,8 +50,6 @@ struct FeelFarmTabView: View {
                     CalendarView(showAddExperience: $myTabShowPlushSheet, container: container)
                 case .share:
                     ShareView()
-                        .navigationTitle("Starbucks® Online Store")
-                        .navigationBarTitleDisplayMode(.inline) // 상단에 타이틀을 작게 표시
                 }
             }
             .environmentObject(container)
@@ -61,14 +59,4 @@ struct FeelFarmTabView: View {
 #Preview("FeelFarmTabView") {
     FeelFarmTabView()
         .environmentObject(DIContainer())
-}
-
-#Preview("SplashView") {
-    SplashView()
-        .environmentObject(AppFlowViewModel())
-}
-
-#Preview("CreateNicknameView") {
-    CreateNicknameView()
-        .environmentObject(AppFlowViewModel())
 }
