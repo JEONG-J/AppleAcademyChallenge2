@@ -88,6 +88,8 @@ struct ShareView: View {
         }
     }
     
+    // MARK: - Sticky Header
+    
     @ViewBuilder
     private func headerView() -> some View {
         GeometryReader { proxy in
@@ -100,27 +102,30 @@ struct ShareView: View {
                 .frame(width: size.width, height: height, alignment: .top)
                 .offset(y: -minY)
         }
-        .frame(height: 10)
+        .frame(height: 20)
     }
     
     @ViewBuilder
     private func pinnedHeaderView() -> some View {
+        
+        let threshhold = -(getScreenSize().height * 0.05)
+        
         HStack {
-            if headerOffsets.0 < -55 {
+            if headerOffsets.0 < threshhold {
                 Spacer()
             }
             
             Text("Learners Story")
-                .font(headerOffsets.0 < -55 ? .T16Semibold : .T24bold)
+                .font(headerOffsets.0 < threshhold ? .T16Semibold : .T24bold)
                 .animation(.easeInOut(duration: 0.4), value: headerOffsets.0)
             
             Spacer()
             
         }
         .frame(height: 90, alignment: .bottomLeading)
-        .safeAreaPadding(.bottom, headerOffsets.0 < -55 ? 20 : 0)
+        .safeAreaPadding(.bottom, headerOffsets.0 < threshhold ? 20 : 0)
         .background(Color.white)
-        .shadow04(isActive: headerOffsets.0 < -55)
+        .shadow04(isActive: headerOffsets.0 < threshhold)
     }
 }
 
