@@ -112,17 +112,20 @@ struct CalendarView: View {
             .frame(width: size.width, height: height, alignment: .top)
             .offset(y: -minY)
         }
-        .frame(height: 10)
+        .frame(height: 20)
     }
     
     @ViewBuilder
     private func pinnedHeaderView() -> some View {
+        
+        let threshhold = -(getScreenSize().height * 0.05)
+        
         ZStack {
             HStack {
                 Text("나의 경험")
-                    .font(headerOffsets.0 < -55 ? .T20Semibold : .T24bold)
+                    .font(headerOffsets.0 < threshhold ? .T20Semibold : .T24bold)
                     .foregroundStyle(Color.black)
-                    .frame(maxWidth: .infinity, alignment: headerOffsets.0 < -55 ? .center : .bottomLeading)
+                    .frame(maxWidth: .infinity, alignment: headerOffsets.0 < threshhold ? .center : .bottomLeading)
                     .animation(.easeInOut(duration: 0.3), value: headerOffsets.0)
             }
             .padding(.horizontal, 16)
@@ -139,9 +142,9 @@ struct CalendarView: View {
             .padding(.horizontal, 16)
         }
         .padding(.bottom, 10)
-        .frame(height: 110, alignment: .bottom)
+        .frame(height: 90, alignment: .bottom)
         .background(Color.white)
-        .shadow04(isActive: headerOffsets.0 < -55)
+        .shadow04(isActive: headerOffsets.0 < threshhold)
     }
 }
 
