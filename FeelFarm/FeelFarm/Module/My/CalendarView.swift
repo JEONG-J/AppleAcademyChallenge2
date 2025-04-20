@@ -56,7 +56,7 @@ struct CalendarView: View {
         .scrollIndicators(.visible)
         .sheet(isPresented: $showAddExperience, content: {
             CreateDragView(showAddExperience: $showAddExperience)
-                .presentationDetents([.fraction(0.4)])
+                .presentationDetents([.fraction(0.3)])
                 .presentationCornerRadius(30)
         })
     }
