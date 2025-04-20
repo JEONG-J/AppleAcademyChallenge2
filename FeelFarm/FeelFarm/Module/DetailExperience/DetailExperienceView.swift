@@ -18,11 +18,16 @@ struct DetailExperienceView: View {
     }
     
     var body: some View {
+        VStack {
             ScrollView(.vertical, content: {
                 contents
             })
-            .contentMargins(.horizontal, 16, for: .scrollContent)
-            .safeAreaPadding(.top, 20)
+            Spacer()
+            
+            bottomBtn
+        }
+        .safeAreaPadding(.horizontal, 16)
+        .safeAreaPadding(.top, 20)
         .alert("나의 경험 기록 삭제", isPresented: $isShowDelete, actions: {
             Button("취소", role: .cancel) { isShowDelete.toggle() }
             Button("삭제", role: .destructive) {
@@ -41,13 +46,8 @@ struct DetailExperienceView: View {
     private var contents: some View {
         VStack(spacing: 64) {
             ExperienceBox(title: "작성된 경험", icon: viewModel.experienceData.emotion.potatoFace, contents: $viewModel.experienceData.content, isModify: $isModify)
-                .disabled(!isModify)
             
-            ExperienceBox(title: "감자도리 AI 편지", icon: Image(.logo), contents: $viewModel.experienceData.feedback, isModify: $isModify)
-            
-            Spacer()
-            
-            bottomBtn
+            ExperienceBox(title: "감자도리 AI 편지", icon: Image(.logo), contents: $viewModel.experienceData.feedback, isModify: .constant(false))
         }
     }
     
@@ -58,9 +58,13 @@ struct DetailExperienceView: View {
             })
             Spacer()
             
-            MainButton(buttonType: isModify ? .modify : .modifyCompleted, action: {
+            MainButton(buttonType: isModify ? .modifyCompleted : .modify, action: {
                 self.isModify.toggle()
             })
         }
     }
+}
+
+#Preview {
+    DetailExperienceView(emotionData: EmotionResponse(id: "0", emotion: .angry, content: "z", feedback: "asdaldkadlkasdjdlaskd", date: Date(), field: .design, sharePostId: "11"), container: DIContainer())
 }

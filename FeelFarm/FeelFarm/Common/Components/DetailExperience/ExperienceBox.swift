@@ -11,17 +11,38 @@ struct ExperienceBox: View {
     
     let title: String
     let icon: Image
+    @State var textSelection: TextSelection? = nil
     @Binding var contents: String
     @Binding var isModify: Bool
-
+    
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 12, content: {
             topTitle
             
-            TextEditor(text: $contents)
-                .detailExperience(isModify: $isModify, text: $contents, background: Color.white)
+            if isModify {
+                TextEditor(text: $contents, selection: $textSelection, )
+                    .detailExperience(isModify: $isModify, text: $contents, background: Color.white)
+                    .shadow01()
+                    .frame(height: 120)
+            } else {
+                ScrollView(.vertical, content: {
+                        Text(contents)
+                            .font(.T16medium)
+                            .lineLimit(nil)
+                            .lineSpacing(2.5)
+                            .multilineTextAlignment(.leading)
+                            .foregroundStyle(Color.black)
+                            .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 400, alignment: .topLeading)
+                            .padding(.vertical, 20)
+                            .padding(.horizontal, 18)
+                            .background {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.white)
+                            }
+                })
                 .shadow01()
-                .frame(height: 280)
+            }
         })
     }
     

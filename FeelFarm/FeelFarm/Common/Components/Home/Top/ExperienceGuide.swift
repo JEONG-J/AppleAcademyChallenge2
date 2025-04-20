@@ -47,12 +47,12 @@ struct ExperienceGuide: View {
     
     private var existenceGuide: some View {
         Text(text.split(separator: "").joined(separator: "\u{200B}"))
-            .font(.T16medium)
+            .font(.T14medium)
             .foregroundStyle(Color.gray07)
             .lineLimit(nil)
             .lineSpacing(2.5)
             .multilineTextAlignment(.leading)
-            .padding(.vertical, 40)
+            .padding(.vertical, 50)
             .padding(.horizontal, 30)
             .background(content: {
                 ZStack(content: {
