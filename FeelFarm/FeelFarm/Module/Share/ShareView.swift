@@ -106,21 +106,21 @@ struct ShareView: View {
     @ViewBuilder
     private func pinnedHeaderView() -> some View {
         HStack {
-            if headerOffsets.0 < -60 {
+            if headerOffsets.0 < -55 {
                 Spacer()
             }
             
             Text("Learners Story")
-                .font(headerOffsets.0 < -60 ? .T16Semibold : .T24bold)
+                .font(headerOffsets.0 < -55 ? .T16Semibold : .T24bold)
                 .animation(.easeInOut(duration: 0.4), value: headerOffsets.0)
             
             Spacer()
             
         }
         .frame(height: 90, alignment: .bottomLeading)
-        .safeAreaPadding(.bottom, headerOffsets.0 < -60 ? 20 : 0)
+        .safeAreaPadding(.bottom, headerOffsets.0 < -55 ? 20 : 0)
         .background(Color.white)
-        .shadow04(isActive: headerOffsets.0 < -60)
+        .shadow04(isActive: headerOffsets.0 < -55)
     }
 }
 

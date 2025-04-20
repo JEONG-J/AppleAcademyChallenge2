@@ -44,19 +44,12 @@ struct CalendarView: View {
                 .padding(.bottom, 80)
             }
         })
-        .overlay(content: {
-            Rectangle()
-                .fill(Color.white)
-                .frame(height: 50)
-                .frame(maxHeight: .infinity, alignment: .top)
-                .opacity(headerOffsets.0 < 5 ? 1 : 0)
-        })
         .ignoresSafeArea()
         .coordinateSpace(name: "SCROLL")
         .scrollIndicators(.visible)
         .sheet(isPresented: $showAddExperience, content: {
             CreateDragView(showAddExperience: $showAddExperience)
-                .presentationDetents([.fraction(0.4)])
+                .presentationDetents([.fraction(0.3)])
                 .presentationCornerRadius(30)
         })
     }
@@ -127,9 +120,9 @@ struct CalendarView: View {
         ZStack {
             HStack {
                 Text("나의 경험")
-                    .font(headerOffsets.0 < -60 ? .T20Semibold : .T24bold)
+                    .font(headerOffsets.0 < -55 ? .T20Semibold : .T24bold)
                     .foregroundStyle(Color.black)
-                    .frame(maxWidth: .infinity, alignment: headerOffsets.0 < -60 ? .center : .bottomLeading)
+                    .frame(maxWidth: .infinity, alignment: headerOffsets.0 < -55 ? .center : .bottomLeading)
                     .animation(.easeInOut(duration: 0.3), value: headerOffsets.0)
             }
             .padding(.horizontal, 16)
@@ -148,7 +141,7 @@ struct CalendarView: View {
         .padding(.bottom, 10)
         .frame(height: 110, alignment: .bottom)
         .background(Color.white)
-        .shadow04(isActive: headerOffsets.0 < -60)
+        .shadow04(isActive: headerOffsets.0 < -55)
     }
 }
 

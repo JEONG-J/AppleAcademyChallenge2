@@ -36,6 +36,7 @@ struct CreateDragView: View {
         VStack(alignment: .leading, spacing: 16, content: {
             ForEach(FieldType.allCases, id: \.self) { field in
                 Button(action: {
+                    print("Hello")
                     container.navigationRouter.push(to: .createExperience(field: field))
                     showAddExperience = false
                 }, label: {
@@ -45,15 +46,25 @@ struct CreateDragView: View {
                         Text(field.createText)
                             .font(.T14medium)
                             .foregroundStyle(Color.gray07)
+                        
+                        Spacer()
+                    })
+                    .padding()
+                    .overlay(alignment: .bottom, content: {
+                        if field != .design {
+                            Divider()
+                                .foregroundStyle(Color.gray02)
+                                .frame(maxWidth: .infinity, maxHeight: 1)
+                        }
                     })
                 })
-                
-                if field != .design {
-                    Divider()
-                        .foregroundStyle(Color.gray02)
-                        .frame(maxWidth: .infinity, maxHeight: 1)
-                }
             }
         })
+        .safeAreaPadding(.top, 12)
     }
+}
+
+#Preview {
+    CreateDragView(showAddExperience: .constant(false))
+        .environmentObject(DIContainer())
 }

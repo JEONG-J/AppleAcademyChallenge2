@@ -16,10 +16,10 @@ struct LearnerExperienceCard: View {
             shareData.emotion.potatoFace
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 40)
+                .frame(width: 35)
             
             Text(shareData.content)
-                .font(.T16Regular)
+                .font(.T14Regular)
                 .foregroundStyle(Color.black)
             
             HStack(spacing: 6, content: {

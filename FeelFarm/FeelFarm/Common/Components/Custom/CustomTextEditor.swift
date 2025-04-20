@@ -26,7 +26,7 @@ struct CustomTextEditor: ViewModifier {
         self._isModify = isModify
         self._text = text
         self.placeholder = ""
-        self.maxTextCount = 300
+        self.maxTextCount = 100
         self.background = background
     }
     
