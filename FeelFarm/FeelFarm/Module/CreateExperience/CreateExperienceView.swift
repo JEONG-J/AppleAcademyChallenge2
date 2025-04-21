@@ -32,7 +32,7 @@ struct CreateExperienceView: View {
             Spacer()
             
             MainButton(buttonType: .createOn, action: {
-                viewModel.container.navigationRouter.pop()
+                viewModel.saveEmotionExperience()
             })
         }
         .overlay(content: {
@@ -46,8 +46,8 @@ struct CreateExperienceView: View {
                             .font(.T14Regular)
                             .foregroundStyle(Color.white)
                     })
-                        .controlSize(.regular)
-                        .tint(Color.white)
+                    .controlSize(.regular)
+                    .tint(Color.white)
                 })
                 .ignoresSafeArea()
             }

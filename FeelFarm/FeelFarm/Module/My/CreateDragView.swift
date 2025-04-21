@@ -28,7 +28,7 @@ struct CreateDragView: View {
             
             Spacer()
         })
-        .safeAreaPadding(.horizontal, 32)
+        .safeAreaPadding(.horizontal, 16)
         .safeAreaPadding(.top, 21)
     }
     
@@ -36,7 +36,6 @@ struct CreateDragView: View {
         VStack(alignment: .leading, spacing: 16, content: {
             ForEach(FieldType.allCases, id: \.self) { field in
                 Button(action: {
-                    print("Hello")
                     container.navigationRouter.push(to: .createExperience(field: field))
                     showAddExperience = false
                 }, label: {
@@ -60,11 +59,6 @@ struct CreateDragView: View {
                 })
             }
         })
-        .safeAreaPadding(.top, 12)
+        .safeAreaPadding(.top, 5)
     }
-}
-
-#Preview {
-    CreateDragView(showAddExperience: .constant(false))
-        .environmentObject(DIContainer())
 }

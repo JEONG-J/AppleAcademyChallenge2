@@ -28,12 +28,14 @@ struct LearnerCard: View {
                 
                 Text(sharedEmotion.content.split(separator: "").joined(separator: "\u{200B}"))
                     .font(.T12medium)
+                    .frame(height: 32, alignment: .top)
                     .foregroundStyle(Color.gray06)
                     .lineLimit(2)
                     .lineSpacing(1.6)
+                    .multilineTextAlignment(.leading)
             })
         })
-        .frame(width: 82)
+        .frame(width: 82, alignment: .top)
     }
 }
 

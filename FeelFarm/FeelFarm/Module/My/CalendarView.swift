@@ -14,6 +14,7 @@ struct CalendarView: View {
     @State private var headerOffsets: (CGFloat, CGFloat) = (0, 0)
     @Binding var showAddExperience: Bool
     @EnvironmentObject var container: DIContainer
+    @Environment(\.isPresented) var isPresented
     
     init(showAddExperience: Binding<Bool>, container: DIContainer) {
         self._showAddExperience = showAddExperience
@@ -49,10 +50,11 @@ struct CalendarView: View {
         .scrollIndicators(.visible)
         .sheet(isPresented: $showAddExperience, content: {
             CreateDragView(showAddExperience: $showAddExperience)
-                .presentationDetents([.fraction(0.3)])
+                .presentationDetents([.fraction(0.38)])
                 .presentationCornerRadius(30)
         })
         .task {
+            print(viewModel.myExperienceData)
             viewModel.fetchEmotionForDate(date: viewModel.selectedDate)
         }
         .onChange(of: viewModel.selectedDate, { _, newValue in
@@ -66,17 +68,27 @@ struct CalendarView: View {
                 .font(.T14medium)
                 .foregroundStyle(Color.gray06)
             
-            if !viewModel.myExperienceData.isEmpty {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 1), spacing: 16, content: {
-                    ForEach(viewModel.myExperienceData, id: \.id) { emotionReponse in
-                        MyExperienceCard(emotionReponse: emotionReponse)
-                            .onTapGesture {
-                                container.navigationRouter.push(to: .myToDetailExpereince(experienceData: emotionReponse))
-                            }
-                    }
-                })
+            if !viewModel.isLoading {
+                if !viewModel.myExperienceData.isEmpty {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 1), spacing: 16, content: {
+                        ForEach(viewModel.myExperienceData, id: \.id) { emotionReponse in
+                            MyExperienceCard(emotionReponse: emotionReponse)
+                                .onTapGesture {
+                                    container.navigationRouter.push(to: .myToDetailExpereince(experienceData: emotionReponse))
+                                }
+                        }
+                    })
+                } else {
+                    noneRecod
+                }
             } else {
-                noneRecod
+                HStack {
+                    Spacer()
+                    
+                    ProgressView()
+                    
+                    Spacer()
+                }
             }
             
             Spacer()
@@ -111,7 +123,7 @@ struct CalendarView: View {
         GeometryReader { proxy in
             let minY = proxy.frame(in: .named("SCROLL")).minY
             let size = proxy.size
-            let height = (size.height + minY)
+            let height = max(0, size.height + minY) 
             
            Rectangle()
             .fill(Color.white)

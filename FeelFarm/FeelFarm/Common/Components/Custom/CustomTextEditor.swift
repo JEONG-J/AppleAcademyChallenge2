@@ -43,7 +43,7 @@ struct CustomTextEditor: ViewModifier {
                         .padding(.vertical, 22)
                         .padding(.leading, 20)
                         .padding(.trailing, 10)
-                        .font(.T16Regular)
+                        .font(.T14Regular)
                         .foregroundStyle(Color.gray04)
                 }
             })

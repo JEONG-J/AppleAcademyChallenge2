@@ -15,24 +15,26 @@ struct HomeView: View {
     @Binding var myTabShowPlushSheet: Bool
     
     var body: some View {
-        if viewModel.isLoading {
-            CustomProgressView()
-                .task {
-                    viewModel.loadAllData()
-                }
-        } else {
-            ScrollView(.vertical, content: {
-                VStack(spacing: 40) {
-                    userProfile
-                    topContents
-                    middleContents
-                    EmotionChartView(viewModel: viewModel, tabCase: $tabCase, myTabShowPlushSheet: $myTabShowPlushSheet)
-                        .environmentObject(container)
-                }
-                .safeAreaPadding(.horizontal, 16)
-            })
-            .safeAreaPadding(.bottom, 20)
-            .background(Color.white)
+        ZStack {
+            if viewModel.isLoading {
+                CustomProgressView()
+            } else {
+                ScrollView(.vertical, content: {
+                    VStack(spacing: 40) {
+                        userProfile
+                        topContents
+                        middleContents
+                        EmotionChartView(viewModel: viewModel, tabCase: $tabCase, myTabShowPlushSheet: $myTabShowPlushSheet)
+                            .environmentObject(container)
+                    }
+                    .safeAreaPadding(.horizontal, 16)
+                })
+                .safeAreaPadding(.bottom, 20)
+                .background(Color.white)
+            }
+        }
+        .task {
+            viewModel.loadAllData()
         }
     }
     
@@ -83,7 +85,7 @@ struct HomeView: View {
                                 }
                         }
                     })
-                    .frame(height: 200)
+                    .frame(height: 200, alignment: .top)
                 })
                 .scrollIndicators(.visible)
             } else {
