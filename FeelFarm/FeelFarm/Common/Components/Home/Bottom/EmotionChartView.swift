@@ -28,10 +28,10 @@ struct EmotionChartView: View {
                 chartStickGraph
             })
             
-//            if viewModel.isAllZero {
-//                NoEmotionChartData(selectedTab: $tabCase, showPlusSheet: $myTabShowPlushSheet)
-//                    .environmentObject(container)
-//            }
+            if viewModel.isAllZero {
+                NoEmotionChartData(selectedTab: $tabCase, showPlusSheet: $myTabShowPlushSheet)
+                    .environmentObject(container)
+            }
         }
         .frame(maxWidth: .infinity, minHeight: 506)
     }

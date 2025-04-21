@@ -35,6 +35,23 @@ struct CreateExperienceView: View {
                 viewModel.container.navigationRouter.pop()
             })
         }
+        .overlay(content: {
+            
+            if viewModel.isLoading {
+                ZStack(content: {
+                    Color.black.opacity(0.75)
+                    
+                    ProgressView(label: {
+                        Text("경험 저장 중입니다.")
+                            .font(.T14Regular)
+                            .foregroundStyle(Color.white)
+                    })
+                        .controlSize(.regular)
+                        .tint(Color.white)
+                })
+                .ignoresSafeArea()
+            }
+        })
         .safeAreaPadding(.horizontal, 16)
         .navigationBarBackButtonHidden()
         .task {

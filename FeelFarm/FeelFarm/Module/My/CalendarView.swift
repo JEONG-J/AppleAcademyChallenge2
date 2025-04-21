@@ -52,11 +52,17 @@ struct CalendarView: View {
                 .presentationDetents([.fraction(0.3)])
                 .presentationCornerRadius(30)
         })
+        .task {
+            viewModel.fetchEmotionForDate(date: viewModel.selectedDate)
+        }
+        .onChange(of: viewModel.selectedDate, { _, newValue in
+            viewModel.fetchEmotionForDate(date: newValue)
+        })
     }
     
     private var bottomContents: some View {
         VStack(alignment: .leading, spacing: 16, content: {
-            Text("\(dayFormatter) 일정")
+            Text("\(dayFormatter(date: viewModel.selectedDate)) 일정")
                 .font(.T14medium)
                 .foregroundStyle(Color.gray06)
             
@@ -84,21 +90,21 @@ struct CalendarView: View {
         Text("생선된 경험이 없습니다. 경험을 추가해보세요")
             .font(.T14Semibold)
             .foregroundStyle(Color.gray04)
-            .frame(maxWidth: .infinity, maxHeight: 85)
+            .frame(maxWidth: .infinity, minHeight: 85)
             .background {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundStyle(Color.gray01)
             }
     }
     
-    private let dayFormatter: String = {
+    private func dayFormatter(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
         
-        let dateString = formatter.string(from: Date())
+        let dateString = formatter.string(from: date)
         return dateString
-    }()
+    }
     
     @ViewBuilder
     private func headerView() -> some View {

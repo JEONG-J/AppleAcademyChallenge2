@@ -15,6 +15,12 @@ struct HomeView: View {
     @Binding var myTabShowPlushSheet: Bool
     
     var body: some View {
+        if viewModel.isLoading {
+            CustomProgressView()
+                .task {
+                    viewModel.loadAllData()
+                }
+        } else {
             ScrollView(.vertical, content: {
                 VStack(spacing: 40) {
                     userProfile
@@ -27,6 +33,7 @@ struct HomeView: View {
             })
             .safeAreaPadding(.bottom, 20)
             .background(Color.white)
+        }
     }
     
     private var userProfile: some View {

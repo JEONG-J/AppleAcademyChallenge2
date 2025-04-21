@@ -6,17 +6,43 @@
 //
 
 import Foundation
+import FirebaseAuth
+import FirebaseFirestore
 
 @Observable
 class ShareViewModel {
     var selectedSegment: FieldType = .domain
-    var sharedData: [SharedEmotion] = [
-        .init(id: "123", content: "개발 너무 어려워서 못하겠어용 흥행행 잉잉잉 으아아아아아아아아미미ㅣ잉이미ㅣ이이", emotion: .happy, feedback: "으아아", field: .domain, nickname: "쿨냥", uid: "~11", date: Date()),
-        .init(id: "1232", content: "개발 너무 어려워서 못하겠어용 흥행행 잉잉잉 으아아아아아아아아미미ㅣ잉이미ㅣ이이", emotion: .angry, feedback: "으아아", field: .domain, nickname: "쿨냥", uid: "~11", date: Date()),
-        .init(id: "1233", content: "개발 너무 어려워서 못하겠어용 흥행행 잉잉잉 으아아아아아아아아미미ㅣ잉이미ㅣ이이", emotion: .inspiration, feedback: "으아아", field: .domain, nickname: "쿨냥", uid: "~11", date: Date()),
-        .init(id: "12113", content: "개발 너무 어려워서 못하겠어용 흥행행 잉잉잉 으아아아아아아아아미미ㅣ잉이미ㅣ이이", emotion: .sad, feedback: "으아아", field: .domain, nickname: "쿨냥", uid: "~11", date: Date()),
-        .init(id: "1233", content: "개발 너무 어려워서 못하겠어용 흥행행 잉잉잉 으아아아아아아아아미미ㅣ잉이미ㅣ이이", emotion: .touched, feedback: "으아아", field: .domain, nickname: "쿨냥", uid: "~11", date: Date()),
-        .init(id: "11223", content: "개발 너무 어려워서 못하겠어용 흥행행 잉잉잉 으아아아아아아아아미미ㅣ잉이미ㅣ이이", emotion: .happy, feedback: "으아아", field: .domain, nickname: "쿨냥", uid: "~11", date: Date()),
-        .init(id: "123412423", content: "개발 너무 어려워서 못하겠어용 흥행행 잉잉잉 으아아아아아아아아미미ㅣ잉이미ㅣ이이", emotion: .inspiration, feedback: "으아아", field: .domain, nickname: "쿨냥", uid: "~11", date: Date())
-    ]
+    var sharedData: [SharedEmotion] = []
+    var isLoading: Bool = false
+    
+    func getEmotionsByField(field: String) {
+        let db = Firestore.firestore()
+        
+        // isLoading 상태 설정
+        isLoading = true
+        
+        db.collection("shared_experience")
+            .whereField("field", isEqualTo: field)
+            .order(by: "createAt", descending: true)
+            .getDocuments { [weak self] snapshot, error in
+                guard let self = self else { return }
+                
+                // 로딩 완료
+                self.isLoading = false
+                
+                if let error = error {
+                    print("분야별 감정 데이터 가져오기 실패: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("해당 분야의 데이터가 없습니다")
+                    return
+                }
+                
+                // 데이터 파싱 및 저장
+                let emotions = documents.compactMap { SharedEmotion(document: $0) }
+                self.sharedData = emotions
+            }
+    }
 }

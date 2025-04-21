@@ -23,10 +23,18 @@ struct ShareView: View {
                     Section(content: {
                         CustomSegment<FieldType>(selectedSegment: $viewModel.selectedSegment)
                         
-                        if !viewModel.sharedData.isEmpty {
-                            contents
+                        if viewModel.isLoading {
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                Spacer()
+                            }
                         } else {
-                            noExperienceData
+                            if !viewModel.sharedData.isEmpty {
+                                contents
+                            } else {
+                                noExperienceData
+                            }
                         }
                     }, header: {
                         pinnedHeaderView()
@@ -43,28 +51,35 @@ struct ShareView: View {
         .ignoresSafeArea()
         .coordinateSpace(name: "SCROLL")
         .background(Color.white)
+        .task {
+            viewModel.getEmotionsByField(field: viewModel.selectedSegment.rawValue)
+        }
+        .onChange(of: viewModel.selectedSegment, { _, newValue in
+            viewModel.getEmotionsByField(field: newValue.rawValue)
+        })
     }
     
     @ViewBuilder
     private var noExperienceData: some View {
         Spacer()
         
-        VStack {
-            Image(.logo)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 94, height: 97)
-            
-            Text("아직 공유된 경험이 없어요! \n누군가의 오늘이 이곳을 채워주길 기다리고 있어요!")
-                .font(.T18Semibold)
-                .foregroundStyle(Color.gray05)
-                .lineLimit(nil)
-                .lineSpacing(2.5)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-                .padding(.top, 16)
-        }
-        Spacer()
+            VStack {
+                
+                Image(.logo)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 94, height: 97)
+                
+                Text("아직 공유된 경험이 없어요! \n누군가의 오늘이 이곳을 채워주길 기다리고 있어요!")
+                    .font(.T18Semibold)
+                    .foregroundStyle(Color.gray05)
+                    .lineLimit(nil)
+                    .lineSpacing(2.5)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 16)
+            }
+            .offset(y: 100)
     }
     
     private var contents: some View {

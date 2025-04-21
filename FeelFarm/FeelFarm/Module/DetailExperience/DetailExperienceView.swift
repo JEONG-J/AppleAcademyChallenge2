@@ -19,19 +19,37 @@ struct DetailExperienceView: View {
     
     var body: some View {
         VStack {
-            ScrollView(.vertical, content: {
-                contents
-            })
-            Spacer()
-            
-            bottomBtn
+            if !viewModel.isLoading {
+                ScrollView(.vertical, content: {
+                    contents
+                })
+                Spacer()
+                
+                if viewModel.isCurrentUserData {
+                    currentUserBottomBtn
+                }
+            } else {
+                Spacer()
+                
+                ProgressView()
+                    .controlSize(.regular)
+                
+                Spacer()
+            }
         }
         .safeAreaPadding(.horizontal, 16)
         .safeAreaPadding(.top, 20)
         .alert("나의 경험 기록 삭제", isPresented: $isShowDelete, actions: {
             Button("취소", role: .cancel) { isShowDelete.toggle() }
             Button("삭제", role: .destructive) {
-                viewModel.container.navigationRouter.pop()
+                Task {
+                    do {
+                        try await viewModel.deleteEmotion()
+                        viewModel.container.navigationRouter.pop()
+                    } catch {
+                        print("삭제 오류: \(error)")
+                    }
+                }
             }
         }, message: {
             Text("기록된 경험을 삭제합니다.")
@@ -51,15 +69,20 @@ struct DetailExperienceView: View {
         }
     }
     
-    private var bottomBtn: some View {
+    private var currentUserBottomBtn: some View {
         HStack {
             MainButton(buttonType: .delete, action: {
                 isShowDelete.toggle()
             })
+            
             Spacer()
             
             MainButton(buttonType: isModify ? .modifyCompleted : .modify, action: {
                 self.isModify.toggle()
+                
+                if isModify {
+                    viewModel.updateEmotion()
+                }
             })
         }
     }

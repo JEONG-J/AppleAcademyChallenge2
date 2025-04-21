@@ -15,17 +15,12 @@ class HomeViewModel {
     
     var isEmotionPickerViewAnimation: Bool = false
     var isEmotionPickerPresented: Bool = false
+    var isLoading: Bool = true
     
     var emotionReponse: EmotionResponse? = .init(id: "0", emotion: .happy, content: "오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!으아아앙으아아아아ㅡ앙아ㅏ아으아아아아ㅡ아아아으아아아으아아앙", feedback: "으아아", date: .now, field: .design, sharePostId: "11")
-    var sharedEmotion: [SharedEmotion]? = [
-        .init(id: "1", content: "우선순위가 계속 바뀌는 바람에..", emotion: .sad, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "2", content: "피그마 사용법을 공부했는데 참고..", emotion: .touched, feedback: "정말 잘했어요!", field: .tech, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "3", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .domain, nickname: "지나", uid: "123", date: .now),
-        .init(id: "4", content: "블라블블라블블라블블라블블라..", emotion: .happy, feedback: "정말 잘했어요!", field: .design, nickname: "제옹", uid: "123", date: .now),
-        .init(id: "5", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .design, nickname: "블라블라", uid: "123", date: .now),
-        .init(id: "6", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .tech, nickname: "킨더", uid: "123", date: .now),
-        .init(id: "7", content: "네트워크 레이어를 리팩토링면서..", emotion: .inspiration, feedback: "정말 잘했어요!", field: .domain, nickname: "엠마", uid: "123", date: .now)
-    ]
+    
+    
+    var sharedEmotion: [SharedEmotion]?
     
     var emotionStats: EmotionStats?
     var emotions: [EmotionChartData] {
@@ -59,10 +54,13 @@ class HomeViewModel {
         return allValues.allSatisfy { $0 == 0 }
     }
     
-    func getLatestEmotion(of type: EmotionType) {
-        print("감정 경험 get")
-        
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+    /// 홈 탭 최상단 감정 경험 get
+    /// - Parameter type: 감정 타입
+    func getLatestEmotion(of type: EmotionType, completion: @escaping () -> Void = {}) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("최근 이모션 로그인 유저 없음")
+            return
+        }
         let db = Firestore.firestore()
         db.collection("users")
             .document(uid)
@@ -82,11 +80,14 @@ class HomeViewModel {
                 }
                 
                 self.emotionReponse = emotion
+                completion()
                 
             }
     }
     
-    func getSharedEmotoins() {
+    /// 러너들의 감정 경험 가져오기
+    func getSharedEmotoins(completion: @escaping () -> Void = {}) {
+        
         Firestore.firestore()
             .collection("shared_experience")
             .order(by: "createAt", descending: true)
@@ -101,12 +102,15 @@ class HomeViewModel {
                 let emotions = documents.compactMap { SharedEmotion(document: $0) }
                 
                 self.sharedEmotion = emotions
+                completion()
             }
     }
     
+    /// 감정 차트 가져오기
+    /// - Parameter completion: 차트 가져온 후 처리
     func getEmotionChart(completion: @escaping () ->  Void = {}) {
         guard let uid = Auth.auth().currentUser?.uid else {
-            print("로그인 유저 없음")
+            print("이모션차트 로그인 유저 없음")
             return
         }
         
@@ -129,5 +133,31 @@ class HomeViewModel {
                 self.emotionStats = stats
                 completion()
             }
+    }
+    
+
+    public func loadAllData() {
+        guard isLoading else { return }
+        
+        let group = DispatchGroup()
+        
+        group.enter()
+        self.getEmotionChart {
+            group.leave()
+        }
+        
+        group.enter()
+        self.getLatestEmotion(of: .happy) {
+            group.leave()
+        }
+        
+        group.enter()
+        self.getSharedEmotoins() {
+            group.leave()
+        }
+        
+        group.notify(queue: .main, execute: {
+            self.isLoading = false
+        })
     }
 }
