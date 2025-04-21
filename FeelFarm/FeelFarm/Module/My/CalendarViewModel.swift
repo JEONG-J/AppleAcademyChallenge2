@@ -23,6 +23,7 @@ class CalendarViewModel {
         }
     
     private var lastRequestedYear: Int?
+    var isLoading: Bool = false
     
     var getHolidaySwitch: Bool = true
     let container: DIContainer
@@ -175,10 +176,12 @@ class CalendarViewModel {
     }
     
     func fetchEmotionForDate(date: Date) {
+        isLoading = true
         myExperienceData = []
         
         guard let uid = Auth.auth().currentUser?.uid else {
             print("캘린더 로그인 유저 없음")
+            isLoading = false
             return
         }
         
@@ -210,6 +213,7 @@ class CalendarViewModel {
                 
                 DispatchQueue.main.async {
                     self.myExperienceData = emotions
+                    self.isLoading = false
                 }
             }
     }

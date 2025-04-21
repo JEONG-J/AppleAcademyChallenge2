@@ -13,7 +13,7 @@ import FirebaseFirestore
 class CreateExperienceViewModel {
     var textEdit: String = ""
     var selectedEmotion: EmotionType?
-    var feedback: String = ""
+    var feedback: String = "하하"
     
     var isLoading: Bool = false
     var isSuccess: Bool = false
@@ -58,7 +58,7 @@ class CreateExperienceViewModel {
             "field": self.fieldType.rawValue,
             "createdAt": FieldValue.serverTimestamp(),
             "feedback": feedback,
-            "sharePostId": sharedDocId  // 미리 생성한 ID 사용
+            "sharePostId": sharedDocId
         ]
         
         db.collection("users").document(uid).getDocument { [weak self] snapshot, error in
@@ -99,6 +99,7 @@ class CreateExperienceViewModel {
                 
                 self.isLoading = false
                 self.isSuccess = true
+                container.navigationRouter.pop()
                 self.resetForm()
             }
         }
@@ -110,7 +111,6 @@ class CreateExperienceViewModel {
             let db = Firestore.firestore()
             let userRef = db.collection("users").document(uid)
             
-            // 트랜잭션으로 안전하게 업데이트
             db.runTransaction({ (transaction, errorPointer) -> Any? in
                 let userDocument: DocumentSnapshot
                 do {

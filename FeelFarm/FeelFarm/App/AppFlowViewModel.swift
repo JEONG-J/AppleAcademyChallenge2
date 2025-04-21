@@ -25,7 +25,7 @@ class AppFlowViewModel: ObservableObject {
             print("자동 로그인된 사용자 UID: \(user.uid)")
             checkUserProfile(uid: user.uid)
         } else {
-            print("로그인 한 사용자 없음")
+            print("스플래시 뷰 : 로그인 한 사용자 없음")
             appState = .login
         }
     }

@@ -35,7 +35,7 @@ class DetailExperienceViewModel {
         
         if let sharedEmotion = experienceData as? SharedEmotion {
             isCurrentUserData = sharedEmotion.uid == currentUserId
-        } else if let emotionResponse = experienceData as? EmotionResponse {
+        } else if let _ = experienceData as? EmotionResponse {
             isCurrentUserData = true
         }
         
@@ -46,10 +46,14 @@ class DetailExperienceViewModel {
         guard isCurrentUserData else { return }
         
         if let sharedEmotion = experienceData as? SharedEmotion {
+            try await db.collection("emotions").document(sharedEmotion.id).delete()
             try await db.collection("shared_experience").document(sharedEmotion.id).delete()
+            
         } else if let emotinoResponse = experienceData as? EmotionResponse {
             try await db.collection("emotions").document(emotinoResponse.id).delete()
         }
+        
+        container.navigationRouter.pop()
     }
     
     func updateEmotion() {

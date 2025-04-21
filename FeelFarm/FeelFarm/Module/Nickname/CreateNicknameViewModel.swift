@@ -11,7 +11,6 @@ import Foundation
 class CreateNicknameViewModel {
     var nickname: String = ""
     var userProfileImage: String = "profilePotato"
-    
     var showPotatoImage: Bool = false
     
 }

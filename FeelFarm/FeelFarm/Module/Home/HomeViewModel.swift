@@ -28,16 +28,16 @@ class HomeViewModel {
         guard let stats = emotionStats else {
             return dummyChartData
         }
-
+        
         let chartData = stats.values.map {
             EmotionChartData(type: $0.key, value: $0.value)
         }
-
+        
         let isAllZero = chartData.allSatisfy { $0.value == 0 }
-
-        return isAllZero ? dummyChartData : chartData.filter { $0.value > 0 }
+        
+        return isAllZero ? dummyChartData : chartData.filter { $0.value >= 0 }
     }
-
+    
     private var dummyChartData: [EmotionChartData] {
         EmotionType.allCases.map { EmotionChartData(type: $0, value: 99) }
     }
@@ -61,7 +61,11 @@ class HomeViewModel {
             print("최근 이모션 로그인 유저 없음")
             return
         }
+        
         let db = Firestore.firestore()
+        
+        // 사용자 문서 확인 단계는 실제로 필요하지 않습니다.
+        // Firestore는 컬렉션이 없어도 쿼리 시 오류를 발생시키지 않습니다.
         db.collection("users")
             .document(uid)
             .collection("emotions")
@@ -70,20 +74,40 @@ class HomeViewModel {
             .limit(to: 1)
             .getDocuments { snapshot, error in
                 if let error = error {
-                    print("'\(type.rawValue)' 감정 불러오기 실패: \(error.localizedDescription)")
+                    if error.localizedDescription.contains("requires an index") {
+                        print("인덱스가 필요합니다. Firebase 콘솔에서 인덱스를 생성해주세요.")
+                    } else {
+                        print("'\(type.rawValue)' 감정 불러오기 실패: \(error.localizedDescription)")
+                    }
+                    self.emotionReponse = nil
+                    completion()
+                    return
+                }
+                
+                // 컬렉션이 없거나 문서가 없는 경우
+                if snapshot?.documents.isEmpty ?? true {
+                    print("'\(type.rawValue)' 감정 기록이 없습니다.")
+                    self.emotionReponse = nil
+                    completion()
                     return
                 }
                 
                 guard let document = snapshot?.documents.first,
                       let emotion = EmotionResponse(document: document) else {
+                    print("감정 데이터 파싱 실패")
+                    self.emotionReponse = nil
+                    completion()
                     return
                 }
                 
                 self.emotionReponse = emotion
-                completion()
+                self.emotionType = emotion.emotion
                 
+                completion()
             }
     }
+
+
     
     /// 러너들의 감정 경험 가져오기
     func getSharedEmotoins(completion: @escaping () -> Void = {}) {
@@ -135,8 +159,9 @@ class HomeViewModel {
             }
     }
     
-
+    
     public func loadAllData() {
+        
         guard isLoading else { return }
         
         let group = DispatchGroup()

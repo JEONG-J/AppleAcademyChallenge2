@@ -17,13 +17,15 @@ struct CreateNicknameView: View {
     
     
     var body: some View {
-        NavigationStack {
             contents
                 .padding(.top, 30)
                 .customToolbar(title: nil, action: {
                     appFlowViewModel.appState = .login
                 })
-        }
+                .onAppear {
+                    UIApplication.shared.hideKeyboard()
+                }
+                .ignoresSafeArea(.keyboard)
     }
     
     /// 내부 컨텐츠

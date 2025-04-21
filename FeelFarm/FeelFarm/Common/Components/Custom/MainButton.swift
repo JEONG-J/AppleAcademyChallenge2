@@ -29,6 +29,7 @@ struct MainButton: View {
                     RoundedRectangle(cornerRadius: 14)
                         .fill(buttonType.background)
                 }
+                .padding(.bottom, 15)
         })
     }
     

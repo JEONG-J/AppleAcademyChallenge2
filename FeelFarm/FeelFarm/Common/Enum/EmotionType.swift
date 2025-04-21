@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 enum EmotionType: String, CaseIterable {
-    case happy
-    case sad
-    case inspiration
-    case touched
-    case angry
+    case happy = "happy"
+    case sad = "sad"
+    case inspiration = "inspiration"
+    case touched = "touched"
+    case angry = "angry"
     
     var emotionIcon: Image {
         switch self {

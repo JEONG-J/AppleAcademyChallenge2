@@ -45,7 +45,6 @@ struct DetailExperienceView: View {
                 Task {
                     do {
                         try await viewModel.deleteEmotion()
-                        viewModel.container.navigationRouter.pop()
                     } catch {
                         print("삭제 오류: \(error)")
                     }

@@ -49,6 +49,7 @@ struct ExperienceGuide: View {
         Text(text.split(separator: "").joined(separator: "\u{200B}"))
             .font(.T14medium)
             .foregroundStyle(Color.gray07)
+            .frame(maxWidth: .infinity, minHeight: 80)
             .lineLimit(nil)
             .lineSpacing(2.5)
             .multilineTextAlignment(.leading)
@@ -69,5 +70,5 @@ struct ExperienceGuide: View {
 }
 
 #Preview {
-    ExperienceGuide(guideType: .existence, text: "오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!")
+    ExperienceGuide(guideType: .existence, text: "오늘 SwiftUI의 ")
 }
