@@ -21,7 +21,7 @@ struct ExperienceBox: View {
             topTitle
             
             if isModify {
-                TextEditor(text: $contents, selection: $textSelection, )
+                TextEditor(text: $contents)
                     .detailExperience(isModify: $isModify, text: $contents, background: Color.white)
                     .shadow01()
                     .frame(height: 120)
@@ -33,7 +33,7 @@ struct ExperienceBox: View {
                             .lineSpacing(2.5)
                             .multilineTextAlignment(.leading)
                             .foregroundStyle(Color.black)
-                            .frame(maxWidth: .infinity, minHeight: 100, maxHeight: 400, alignment: .topLeading)
+                            .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 400, alignment: .topLeading)
                             .padding(.vertical, 20)
                             .padding(.horizontal, 18)
                             .background {

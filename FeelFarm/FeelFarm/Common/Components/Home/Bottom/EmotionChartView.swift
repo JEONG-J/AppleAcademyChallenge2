@@ -79,7 +79,7 @@ struct EmotionChartView: View {
                 }
             }
         }
-        .frame(width: 200, height: 200)
+        .frame(width: 210, height: 210)
     }
     
     private var chartStickGraph: some View {

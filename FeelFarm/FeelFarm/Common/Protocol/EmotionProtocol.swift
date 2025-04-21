@@ -9,7 +9,7 @@ import Foundation
 
 protocol EmotionProtocol: Equatable {
     var id: String { get set}
-    var content: String { get set}
+    var content: String { get set }
     var emotion: EmotionType { get set}
     var feedback: String { get set}
     var field: FieldType { get set}

@@ -162,6 +162,8 @@ class HomeViewModel {
     
     public func loadAllData() {
         
+        isLoading = true
+        
         guard isLoading else { return }
         
         let group = DispatchGroup()

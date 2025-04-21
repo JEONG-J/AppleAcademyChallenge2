@@ -25,6 +25,7 @@ struct CustomSegment<T: SegmentType & CaseIterable>: View {
                 })
             }
         })
+        .background(Color.white)
     }
     
     private func makeSegmentButton(segment: T) -> some View {
