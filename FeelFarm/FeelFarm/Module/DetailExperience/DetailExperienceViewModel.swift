@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import Combine
 
 @Observable
 class DetailExperienceViewModel {
@@ -19,11 +20,36 @@ class DetailExperienceViewModel {
     var isLoading: Bool = true
     var isCurrentUserData: Bool = false
     
+    private var cancellalbes = Set<AnyCancellable>()
+    
     init(experienceData: any EmotionProtocol, container: DIContainer) {
         self.experienceData = experienceData
         self.container = container
         self.modifyText = experienceData.content
         checkOwnership()
+    }
+    
+    func getAIResponse() {
+        
+        isLoading = true
+        
+        container.userCaseProvider.aiUsecase.getAI(model: makeAIModel())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    print("getAIModel Completed")
+                case .failure(let failure):
+                    print("getAIModel Error: \(failure  )")
+                    self?.isLoading = false
+                }
+            }, receiveValue: { [weak self] responseData in
+                self?.experienceData.feedback = responseData.response
+                
+                self?.updateEmotion()
+                self?.isLoading = false
+            })
+            .store(in: &cancellalbes)
     }
     
     func checkOwnership() {
@@ -184,5 +210,10 @@ class DetailExperienceViewModel {
                     }
                 }
         }
+    }
+    
+    
+    private func makeAIModel() -> AIModel {
+        return .init(model: "hf.co/MLP-KTLim/llama-3-Korean-Bllossom-8B-gguf-Q4_K_M", system: "당신은 달콤하고 순수하며 사랑스러운 작은 친구입니다. “괜찮아~”, “내가 여기 있어!”, “수고했어 💛”, “안아 안아~”, “슬퍼하지 마~” 등과 같은 친근한 표현을 사용하세요. 직접적인 격려의 메시지 하나만 남겨주세요.", prompt: "현재 나의 기분은 \(experienceData.emotion.emotionKorean)입니다. \(modifyText)", stream: false)
     }
 }

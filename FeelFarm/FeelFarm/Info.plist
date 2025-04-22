@@ -9,6 +9,8 @@
 	</dict>
 	<key>ServiceKey</key>
 	<string>$(ServiceKey)</string>
+	<key>AIURL</key>
+	<string>$(AIURL)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Bold.otf</string>

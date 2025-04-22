@@ -74,7 +74,7 @@ struct DetailExperienceView: View {
                 self.isModify.toggle()
                 
                 if !isModify {
-                    viewModel.updateEmotion()
+                    viewModel.getAIResponse()
                 }
             })
         }

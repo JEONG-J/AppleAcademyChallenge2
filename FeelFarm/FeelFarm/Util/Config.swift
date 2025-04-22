@@ -22,4 +22,11 @@ enum Config {
         }
         return serviceKey
     }()
+    
+    static let AppURL: String = {
+        guard let aiURL = Config.infoDictionary["AIURL"] as? String else {
+            fatalError("AIError")
+        }
+        return aiURL
+    }()
 }
