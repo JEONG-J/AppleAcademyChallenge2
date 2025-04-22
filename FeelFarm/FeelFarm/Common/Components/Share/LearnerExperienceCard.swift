@@ -10,38 +10,43 @@ import SwiftUI
 struct LearnerExperienceCard: View {
     
     let shareData: SharedEmotion
+    @EnvironmentObject var container: DIContainer
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8, content: {
-            shareData.emotion.potatoFace
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 35)
-            
-            Text(shareData.content)
-                .font(.T14Regular)
-                .foregroundStyle(Color.black)
-            
-            HStack(spacing: 6, content: {
-                Text(shareData.nickname)
-                    .font(.T14medium)
-                    .foregroundStyle(Color.gray05)
-                    .lineLimit(nil)
-                    .lineSpacing(2.5)
-                    .multilineTextAlignment(.leading)
+        Button(action: {
+            container.navigationRouter.push(to: .shareToDetailExperience(experienceData: shareData))
+        }, label: {
+            VStack(alignment: .leading, spacing: 8, content: {
+                shareData.emotion.potatoFace
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 35)
                 
-               Text("|")
-                    .font(.T14medium)
-                    .foregroundStyle(Color.gray05)
+                Text(shareData.content)
+                    .font(.T14Regular)
+                    .foregroundStyle(Color.black)
                 
-                Text("작성일: \(formatterDate(shareData.date))")
-                    .font(.T14medium)
-                    .foregroundStyle(Color.gray04)
+                HStack(spacing: 6, content: {
+                    Text(shareData.nickname)
+                        .font(.T14medium)
+                        .foregroundStyle(Color.gray05)
+                        .lineLimit(nil)
+                        .lineSpacing(2.5)
+                        .multilineTextAlignment(.leading)
+                    
+                    Text("|")
+                        .font(.T14medium)
+                        .foregroundStyle(Color.gray05)
+                    
+                    Text("작성일: \(formatterDate(shareData.date))")
+                        .font(.T14medium)
+                        .foregroundStyle(Color.gray04)
+                })
+                .padding(.top, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
             })
-            .padding(.top, 8)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, minHeight: 103)
         })
-        .frame(maxWidth: .infinity, minHeight: 103)
             
     }
     

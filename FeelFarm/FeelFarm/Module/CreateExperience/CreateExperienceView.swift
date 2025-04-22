@@ -32,7 +32,7 @@ struct CreateExperienceView: View {
             Spacer()
             
             MainButton(buttonType: .createOn, action: {
-                viewModel.saveEmotionExperience()
+                viewModel.getAIResponse()
             })
         }
         .overlay(content: {

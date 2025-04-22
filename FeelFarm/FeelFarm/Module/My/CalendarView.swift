@@ -141,7 +141,7 @@ struct CalendarView: View {
         ZStack {
             HStack {
                 Text("나의 경험")
-                    .font(headerOffsets.0 < threshhold ? .T20Semibold : .T24bold)
+                    .font(headerOffsets.0 < threshhold ? .T16medium : .T24bold)
                     .foregroundStyle(Color.black)
                     .frame(maxWidth: .infinity, alignment: headerOffsets.0 < threshhold ? .center : .bottomLeading)
                     .animation(.easeInOut(duration: 0.3), value: headerOffsets.0)
@@ -160,7 +160,7 @@ struct CalendarView: View {
             .padding(.horizontal, 16)
         }
         .padding(.bottom, 10)
-        .frame(height: 90, alignment: .bottom)
+        .frame(height: 80, alignment: .bottom)
         .background(Color.white)
         .shadow04(isActive: headerOffsets.0 < threshhold)
     }

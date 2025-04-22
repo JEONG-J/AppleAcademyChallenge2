@@ -42,13 +42,7 @@ struct DetailExperienceView: View {
         .alert("나의 경험 기록 삭제", isPresented: $isShowDelete, actions: {
             Button("취소", role: .cancel) { isShowDelete.toggle() }
             Button("삭제", role: .destructive) {
-                Task {
-                    do {
-                        try await viewModel.deleteEmotion()
-                    } catch {
-                        print("삭제 오류: \(error)")
-                    }
-                }
+                viewModel.deleteEmotion()
             }
         }, message: {
             Text("기록된 경험을 삭제합니다.")
@@ -62,7 +56,7 @@ struct DetailExperienceView: View {
     
     private var contents: some View {
         VStack(spacing: 64) {
-            ExperienceBox(title: "작성된 경험", icon: viewModel.experienceData.emotion.potatoFace, contents: $viewModel.experienceData.content, isModify: $isModify)
+            ExperienceBox(title: "작성된 경험", icon: viewModel.experienceData.emotion.potatoFace, contents: $viewModel.modifyText, isModify: $isModify)
             
             ExperienceBox(title: "감자도리 AI 편지", icon: Image(.logo), contents: $viewModel.experienceData.feedback, isModify: .constant(false))
         }
@@ -79,8 +73,8 @@ struct DetailExperienceView: View {
             MainButton(buttonType: isModify ? .modifyCompleted : .modify, action: {
                 self.isModify.toggle()
                 
-                if isModify {
-                    viewModel.updateEmotion()
+                if !isModify {
+                    viewModel.getAIResponse()
                 }
             })
         }

@@ -84,16 +84,11 @@ struct ShareView: View {
     
     private var contents: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 1), spacing: 10) {
-            ForEach(viewModel.sharedData.indices, id: \.self) { index in
-                let shareData = viewModel.sharedData[index]
-                
+            ForEach(viewModel.sharedData, id: \.id) { shareData in
                 VStack(spacing: 10) {
                     LearnerExperienceCard(shareData: shareData)
-                        .onTapGesture {
-                            container.navigationRouter.push(to: .shareToDetailExperience(experienceData: viewModel.sharedData[index]))
-                        }
-                    
-                    if index < viewModel.sharedData.count - 1 {
+                        .environmentObject(container)
+                    if shareData.id != viewModel.sharedData.last?.id {
                         Divider()
                             .foregroundStyle(Color.gray03)
                             .frame(maxWidth: .infinity,  maxHeight: 1)
@@ -110,7 +105,7 @@ struct ShareView: View {
         GeometryReader { proxy in
             let minY = proxy.frame(in: .named("SCROLL")).minY
             let size = proxy.size
-            let height = size.height + minY
+            let height = max(0, size.height + minY)
             
             Rectangle()
                 .fill(Color.white)
@@ -131,13 +126,13 @@ struct ShareView: View {
             }
             
             Text("Learners Story")
-                .font(headerOffsets.0 < threshhold ? .T16Semibold : .T24bold)
+                .font(headerOffsets.0 < threshhold ? .T16medium : .T24bold)
                 .animation(.easeInOut(duration: 0.4), value: headerOffsets.0)
             
             Spacer()
             
         }
-        .frame(height: 90, alignment: .bottomLeading)
+        .frame(height: 80, alignment: .bottomLeading)
         .safeAreaPadding(.bottom, headerOffsets.0 < threshhold ? 20 : 0)
         .background(Color.white)
         .shadow04(isActive: headerOffsets.0 < threshhold)
