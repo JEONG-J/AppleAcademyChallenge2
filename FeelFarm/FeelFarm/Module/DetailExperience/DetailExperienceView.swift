@@ -52,6 +52,7 @@ struct DetailExperienceView: View {
         .customToolbar(title: "경험 상세 화면", action: {
             viewModel.container.navigationRouter.pop()
         })
+        .loadingOverlay(isLoading: viewModel.isModifyLoading)
     }
     
     private var contents: some View {

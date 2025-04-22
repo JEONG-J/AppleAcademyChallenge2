@@ -18,6 +18,7 @@ class DetailExperienceViewModel {
     private let db = Firestore.firestore()
     
     var isLoading: Bool = true
+    var isModifyLoading: Bool = false
     var isCurrentUserData: Bool = false
     
     private var cancellalbes = Set<AnyCancellable>()
@@ -31,7 +32,7 @@ class DetailExperienceViewModel {
     
     func getAIResponse() {
         
-        isLoading = true
+        isModifyLoading = true
         
         container.userCaseProvider.aiUsecase.getAI(model: makeAIModel())
             .receive(on: DispatchQueue.main)
@@ -41,13 +42,13 @@ class DetailExperienceViewModel {
                     print("getAIModel Completed")
                 case .failure(let failure):
                     print("getAIModel Error: \(failure  )")
-                    self?.isLoading = false
+                    self?.isModifyLoading = false
                 }
             }, receiveValue: { [weak self] responseData in
                 self?.experienceData.feedback = responseData.response
                 
                 self?.updateEmotion()
-                self?.isLoading = false
+                self?.isModifyLoading = false
             })
             .store(in: &cancellalbes)
     }

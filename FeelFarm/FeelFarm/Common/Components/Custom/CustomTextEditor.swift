@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomTextEditor: ViewModifier {
+    @FocusState private var isFocused: Bool
     @Binding var isModify: Bool
     @Binding var text: String
     let placeholder: String
@@ -32,11 +33,12 @@ struct CustomTextEditor: ViewModifier {
     
     func body(content: Content) -> some View {
         content
+            .focused($isFocused)
             .padding(.top, 20)
             .padding(.horizontal, 18)
             .padding(.bottom, 40)
             .background(alignment: .topLeading, content: {
-                if text.isEmpty {
+                if text.isEmpty && !isFocused {
                     Text(makeStyledText(for: placeholder))
                         .lineLimit(nil)
                         .lineSpacing(2.5)

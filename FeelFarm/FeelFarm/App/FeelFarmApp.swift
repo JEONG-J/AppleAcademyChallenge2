@@ -17,17 +17,18 @@ struct FeelFarmApp: App {
     
     var body: some Scene {
         WindowGroup {
-            switch appFlowViewModel.appState {
-            case .onboarding, .login:
-                SplashView()
-                    .environmentObject(appFlowViewModel)
-            case .createProfile:
-                CreateNicknameView()
-                    .environmentObject(appFlowViewModel)
-            case .tabbar:
-                FeelFarmTabView()
-                    .environmentObject(container)
-            }
+            CreateExperienceView(fieldType: .design, container: DIContainer())
+//            switch appFlowViewModel.appState {
+//            case .onboarding, .login:
+//                SplashView()
+//                    .environmentObject(appFlowViewModel)
+//            case .createProfile:
+//                CreateNicknameView()
+//                    .environmentObject(appFlowViewModel)
+//            case .tabbar:
+//                FeelFarmTabView()
+//                    .environmentObject(container)
+//            }
         }
     }
 }
