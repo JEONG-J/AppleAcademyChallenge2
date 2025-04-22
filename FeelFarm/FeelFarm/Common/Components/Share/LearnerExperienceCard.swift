@@ -25,6 +25,9 @@ struct LearnerExperienceCard: View {
                 Text(shareData.content)
                     .font(.T14Regular)
                     .foregroundStyle(Color.black)
+                    .lineLimit(nil)
+                    .lineSpacing(2.5)
+                    .multilineTextAlignment(.leading)
                 
                 HStack(spacing: 6, content: {
                     Text(shareData.nickname)
