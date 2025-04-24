@@ -132,7 +132,7 @@ struct ShareView: View {
             Spacer()
             
         }
-        .frame(height: 80, alignment: .bottomLeading)
+        .frame(height: 90, alignment: .bottomLeading)
         .safeAreaPadding(.bottom, headerOffsets.0 < threshhold ? 20 : 0)
         .background(Color.white)
         .shadow04(isActive: headerOffsets.0 < threshhold)

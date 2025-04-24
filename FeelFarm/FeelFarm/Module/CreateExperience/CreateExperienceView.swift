@@ -16,35 +16,35 @@ struct CreateExperienceView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            
-            Spacer().frame(maxHeight: 40)
-            
-            makeTextView(text: "오늘 어떤 순간이 마음에 남았나요?")
-            
-            ZStack(alignment: .topLeading) {
-                CustomDropBox(viewModel: viewModel).zIndex(1)
+            VStack(alignment: .leading) {
                 
-                secondContents.zIndex(0)
-                    .offset(y: 80)
+                Spacer().frame(maxHeight: 130)
+                
+                makeTextView(text: "오늘 어떤 순간이 마음에 남았나요?")
+                
+                ZStack(alignment: .topLeading) {
+                    CustomDropBox(viewModel: viewModel).zIndex(1)
+                    
+                    secondContents.zIndex(0)
+                        .offset(y: 80)
+                }
+                
+                Spacer()
+                
+                MainButton(buttonType: .createOn, action: {
+                    viewModel.getAIResponse()
+                })
             }
-            
-            Spacer()
-            
-            MainButton(buttonType: .createOn, action: {
-                viewModel.getAIResponse()
+            .loadingOverlay(isLoading: viewModel.isLoading, loadingType: .experience)
+            .safeAreaPadding(.horizontal, 16)
+            .navigationBarBackButtonHidden()
+            .task {
+                UIApplication.shared.hideKeyboard()
+            }
+            .customToolbar(title: "\(viewModel.fieldType.titleEnglish) 경험 생성", action: {
+                viewModel.container.navigationRouter.pop()
             })
-        }
-        .loadingOverlay(isLoading: viewModel.isLoading)
-        .safeAreaPadding(.horizontal, 16)
-        .navigationBarBackButtonHidden()
-        .task {
-            UIApplication.shared.hideKeyboard()
-        }
-        .customToolbar(title: "\(viewModel.fieldType.titleEnglish) 경험 생성", action: {
-            viewModel.container.navigationRouter.pop()
-        })
-        .ignoresSafeArea(.keyboard)
+            .ignoresSafeArea()
     }
     
     private var secondContents: some View {
@@ -53,7 +53,7 @@ struct CreateExperienceView: View {
             
             TextEditor(text: $viewModel.textEdit)
                 .createExperience(text: $viewModel.textEdit, placeholder: "기억에 남는 오늘의 순간, 마음을 스친 생각, 혹은 아무 말이라도 좋아요.\n특별한 일이 없어도 괜찮아요. 소소한 기분의 변화, 스쳐 지나간 한마디도\n당신의 오늘을 보여주는 소중한 조각이니까요.\n\n망설이지 말고, 지금 떠오르는 그 순간을 조심스럽게 적어보세요.\n글을 남기면 귀여운 감자도리 AI가 따뜻한 응원의 말을 전해줄 거예요!", maxTextCount: 100, background: Color.gray01)
-                .frame(width: 370, height: 250)
+                .frame(maxHeight: 250)
         })
     }
     

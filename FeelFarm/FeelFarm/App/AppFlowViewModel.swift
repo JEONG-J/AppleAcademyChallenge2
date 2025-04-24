@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 class AppFlowViewModel: ObservableObject {
     
@@ -46,23 +47,6 @@ class AppFlowViewModel: ObservableObject {
             } else {
                 print("닉네임 정보 없음 -> 프로필 생성")
                 self.appState = .createProfile
-            }
-        }
-    }
-    
-    func createUserProfile(uid: String, nickname: String, profileImageName: String) {
-        let userRef = Firestore.firestore().collection("users").document(uid)
-        let user = UserModel(nickname: nickname, profileImageName: profileImageName)
-        
-        userRef.setData(user.toDictionary) { error in
-            if let error = error {
-                print("유저 프로필 생성 실패: \(error)")
-                return
-            }
-            
-            print("유저 프로필 생성 성공")
-            DispatchQueue.main.async {
-                self.appState = .tabbar
             }
         }
     }

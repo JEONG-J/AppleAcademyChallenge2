@@ -160,7 +160,7 @@ struct CalendarView: View {
             .padding(.horizontal, 16)
         }
         .padding(.bottom, 10)
-        .frame(height: 80, alignment: .bottom)
+        .frame(height: 90, alignment: .bottom)
         .background(Color.white)
         .shadow04(isActive: headerOffsets.0 < threshhold)
     }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct HomeView: View {
     
@@ -46,7 +47,19 @@ struct HomeView: View {
             
             Spacer()
             
-            Image(.profilePotato)
+            userProfileImage
+        }
+    }
+    
+    @ViewBuilder
+    private var userProfileImage: some View {
+        if let profileURL = viewModel.profileURL,
+           let url = URL(string: profileURL) {
+            KFImage(url)
+                .placeholder({
+                    ProgressView()
+                }).retry(maxCount: 2, interval: .seconds(2))
+                .onFailureImage(.profilePotato)
                 .resizable()
                 .frame(width: 36, height: 36)
                 .clipShape(Circle())

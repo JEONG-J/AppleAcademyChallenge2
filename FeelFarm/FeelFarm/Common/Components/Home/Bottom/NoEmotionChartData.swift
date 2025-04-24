@@ -50,7 +50,6 @@ struct NoEmotionChartData: View {
                 }
                 .foregroundStyle(.gray07)
             })
-            .frame(width: 208, height: 98)
         }
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }

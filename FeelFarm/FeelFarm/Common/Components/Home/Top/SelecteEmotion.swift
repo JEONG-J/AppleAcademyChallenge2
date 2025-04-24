@@ -41,10 +41,14 @@ struct SelecteEmotion: View {
             }, label: {
                 ZStack(alignment: .top, content: {
                 Image(.emotionBackground)
-                    HStack(spacing: 6, content: {
+                    HStack(content: {
                         viewModel.emotionType.potatoFace
+                        
+                        Spacer()
+                        
                         viewModel.emotionType.emotionIcon
                     })
+                    .frame(width: 91)
             })
         })
     }

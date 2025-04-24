@@ -8,15 +8,19 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import Kingfisher
 
 @Observable
 class HomeViewModel {
-    var emotionType: EmotionType = .happy
+    
     
     var isEmotionPickerViewAnimation: Bool = false
     var isEmotionPickerPresented: Bool = false
     var isLoading: Bool = true
     
+    var profileURL: String?
+    
+    var emotionType: EmotionType = .happy
     var emotionReponse: EmotionResponse? = .init(id: "0", emotion: .happy, content: "오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!오늘 SwiftUI의 수정자를 공부했어요!으아아앙으아아아아ㅡ앙아ㅏ아으아아아아ㅡ아아아으아아아으아아앙", feedback: "으아아", date: .now, field: .design, sharePostId: "11")
     
     
@@ -160,6 +164,33 @@ class HomeViewModel {
     }
     
     
+    public func getProfile(completion: @escaping () -> Void = {}) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("프로필 조회 로그인 유저 없음")
+            return
+        }
+        
+        Firestore.firestore()
+            .collection("users")
+            .document(uid)
+            .getDocument { snapshot, error in
+                if let error = error {
+                    print("그래프 기록 없음 \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let data = snapshot?.data(),
+                      let urlString = data["profileImageName"] as? String else {
+                          print("프로필 이미지 URL 가져오지 못함")
+                          return
+                      }
+                
+                self.profileURL = urlString
+                completion()
+            }
+    }
+    
+    
     public func loadAllData() {
         
         isLoading = true
@@ -167,6 +198,11 @@ class HomeViewModel {
         guard isLoading else { return }
         
         let group = DispatchGroup()
+        
+        group.enter()
+        self.getProfile() {
+            group.leave()
+        }
         
         group.enter()
         self.getEmotionChart {
