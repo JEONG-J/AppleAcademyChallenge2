@@ -18,8 +18,6 @@ struct CreateExperienceView: View {
     var body: some View {
             VStack(alignment: .leading) {
                 
-                Spacer().frame(maxHeight: 130)
-                
                 makeTextView(text: "오늘 어떤 순간이 마음에 남았나요?")
                 
                 ZStack(alignment: .topLeading) {
@@ -34,6 +32,7 @@ struct CreateExperienceView: View {
                 MainButton(buttonType: .createOn, action: {
                     viewModel.getAIResponse()
                 })
+                .padding(.bottom, 20)
             }
             .loadingOverlay(isLoading: viewModel.isLoading, loadingType: .experience)
             .safeAreaPadding(.horizontal, 16)
@@ -44,7 +43,7 @@ struct CreateExperienceView: View {
             .customToolbar(title: "\(viewModel.fieldType.titleEnglish) 경험 생성", action: {
                 viewModel.container.navigationRouter.pop()
             })
-            .ignoresSafeArea()
+            .offset(y: 20)
     }
     
     private var secondContents: some View {

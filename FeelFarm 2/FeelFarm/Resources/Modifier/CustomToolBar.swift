@@ -20,7 +20,7 @@ struct CustomToolBar: ViewModifier {
     func body(content: Content) -> some View {
         content
             .toolbar(content: {
-                ToolbarItem(placement: .navigation, content: {
+                ToolbarItem(placement: .topBarLeading, content: {
                     Button(action: {
                         action()
                     }, label: {

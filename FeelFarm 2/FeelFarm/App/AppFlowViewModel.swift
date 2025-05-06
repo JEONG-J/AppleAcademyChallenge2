@@ -12,7 +12,7 @@ import FirebaseStorage
 
 class AppFlowViewModel: ObservableObject {
     
-    @Published var appState: AppState = .onboarding
+    @Published var appState: AppState = .tabbar
     
     enum AppState {
         case onboarding
